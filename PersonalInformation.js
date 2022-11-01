@@ -160,7 +160,7 @@ const PersonalInformationForm = [
         validationRegex: [],
         maxLength: 50,
         minLength: 2,
-        isRequired: false,
+        isRequired: true,
     },
     {
         id: 'document_type',
