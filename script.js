@@ -19,6 +19,7 @@ const PersonalInformationForm = [
         ],
         maxLength: 200,
         minLength: 5,
+        isRequired: true,
     },
     {
         id: 'middle_name',
@@ -38,6 +39,7 @@ const PersonalInformationForm = [
         ],
         maxLength: 200,
         minLength: 5,
+        isRequired: true,
     },
     {
         id: 'last_name',
@@ -57,6 +59,7 @@ const PersonalInformationForm = [
         ],
         maxLength: 200,
         minLength: 5,
+        isRequired: true,
     },
     {
         id: 'date_bithday',
@@ -64,6 +67,7 @@ const PersonalInformationForm = [
         errorId: 'date_bithday_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',
+        isRequired: true,
     },
     {
         id: 'tax_country',
@@ -72,6 +76,7 @@ const PersonalInformationForm = [
         errorId: 'tax_country_error',
         placeholder: '',
         typeInput: 'Dropdown',
+        isRequired: true,
     },
     {
         id: 'phone_number',
@@ -88,6 +93,7 @@ const PersonalInformationForm = [
         ],
         maxLength: 200,
         minLength: 5,
+        isRequired: true,
     },
     {
         id: 'id_photo',
@@ -95,6 +101,121 @@ const PersonalInformationForm = [
         errorId: 'id_photo_error',
         placeholder: '',
         typeInput: 'FileUpload',
+        fileUploaded: null,
+        isRequired: true,
+    },
+    {
+        id: 'street_1',
+        label: 'Street',
+        errorId: 'street_1_error',
+        placeholder: '',
+        typeInput: 'textField',
+        validationRegex: [],
+        maxLength: 200,
+        minLength: 2,
+        isRequired: true,
+    },
+    {
+        id: 'street_2',
+        label: 'Street 2',
+        errorId: 'street_2_error',
+        placeholder: '',
+        typeInput: 'textField',
+        validationRegex: [],
+        maxLength: 200,
+        minLength: 2,
+        isRequired: false,
+    },
+    {
+        id: 'country_selection',
+        label: 'Country',
+        options: ['United States', 'Venezuela', 'Colombia', 'Argentina', 'Panama'],
+        errorId: 'country_error',
+        placeholder: '',
+        typeInput: 'Dropdown',
+        isRequired: true,
+    },
+    {
+        id: 'state_related_selection',
+        label: 'State',
+        options: ['No idea where find the info yet'],
+        errorId: 'state_related_error',
+        placeholder: '',
+        typeInput: 'Dropdown',
+        isRequired: true,
+    },
+    {
+        id: 'city_related',
+        label: 'City',
+        options: ['No idea where find the info yet'],
+        errorId: 'city_related_error',
+        placeholder: '',
+        typeInput: 'Dropdown',
+        isRequired: true,
+    },
+    {
+        id: 'postal_code',
+        label: 'Postal Code',
+        errorId: 'postal_code_error',
+        placeholder: '',
+        typeInput: 'textField',
+        validationRegex: [],
+        maxLength: 50,
+        minLength: 2,
+        isRequired: false,
+    },
+    {
+        id: 'document_type',
+        label: 'Validate address document type',
+        options: ['Utility Bill', '...'],
+        errorId: 'document_type_error',
+        placeholder: '',
+        typeInput: 'Dropdown',
+        isRequired: true,
+    },
+    {
+        id: 'validate_address_photo',
+        label: 'Validate Address',
+        errorId: 'validate_address_photo_error',
+        placeholder: '',
+        typeInput: 'FileUpload',
+        fileUploaded: null,
+        isRequired: true,
+    },
+    {
+        id: 'type_id',
+        label: 'Type ID',
+        options: ['Drivers license', 'Gov ID', 'Passport', 'Residence Permit', 'RIF'],
+        errorId: 'document_type_error',
+        placeholder: '',
+        typeInput: 'Dropdown',
+        isRequired: true,
+    },
+    {
+        id: 'validate_id_photo',
+        label: 'ID Document',
+        errorId: 'validate_id_photo_error',
+        placeholder: '',
+        typeInput: 'FileUpload',
+        fileUploaded: null,
+        isRequired: true,
+    },
+    {
+        id: 'country_residence',
+        label: 'Contry of residence',
+        options: ['United States', 'Venezuela', 'Colombia', 'Argentina', 'Panama'],
+        errorId: 'document_type_error',
+        placeholder: '',
+        typeInput: 'Dropdown',
+        isRequired: true,
+    },
+    {
+        id: 'expiration_id',
+        label: 'Expiration on ID',
+        errorId: 'expiration_id_error',
+        placeholder: 'mm/dd/yyyy',
+        typeInput: 'DatePicker',
+        isRequired: true,
     },
 ]
 
@@ -113,10 +234,10 @@ const DropDownField = ({label, id, errorId, options}) => {
 
 const UploadFileField = ({ label, errorId, id}) => {
     return (`
-    <div>
+    <div class="mb-5">
                                 <label class="block text-sm font-medium text-gray-700">${label}</label>
                                 <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
-                                    id="box-focus">
+                                    onclick="openDynamicInputUpload(${id})">
                                     <div class="space-y-1 text-center">
                                         <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
                                             viewBox="0 0 48 48" aria-hidden="true">
@@ -129,7 +250,7 @@ const UploadFileField = ({ label, errorId, id}) => {
                                                 class="relative cursor-pointer mx-auto rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
                                                 <span id="text-file">Subir imagen</span>
                                                 <input id="${id}" onchange="fileInputChangeValue(${id})"
-                                                    name="file-upload" type="file" class="sr-only" accept=".png,.jpg">
+                                                    name="file-upload" type="file" class="sr-only" >
                                             </label>
                                         </div>
                                         <p class="text-xs text-gray-500">PNG, JPG, GIF ( Min 400kb - Max 2mb )</p>
@@ -167,6 +288,9 @@ const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type
     </div>`
     )
 }
+function openDynamicInputUpload(id) {
+    id.click()
+}
 
 const createDynamicForm = (typeForm) => {
     if (typeForm === 'PersonalForm') {
@@ -178,6 +302,15 @@ const createDynamicForm = (typeForm) => {
             if(elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
         })
         document.getElementById('dinamyc_form').innerHTML = dynamicForm.toString().replaceAll(',', ' ');
+
+        PersonalInformationForm.forEach((elementForm) => {
+            if(elementForm === 'FileUpload') {
+                document.getElementById(`box-${elementForm.id}`).onclick = () => {
+                    document.getElementById(elementForm.id).click();
+                }
+            }
+        });
+        
     }
 };
 
@@ -200,7 +333,7 @@ function validateForm() {
                 }
             }
             if(inputField.type === 'file'){
-                if(!inputField.value) document.getElementById(elementForm.errorId).innerText = 'Selecciona una foto PNG o JPG'
+                if(inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Selecciona una foto PNG o JPG'
             }
         });
     }
@@ -209,7 +342,7 @@ function validateForm() {
 
 let fileUploaded;
 function fileInputChangeValue(id) {
-    const fi = document.getElementById('fileUploaded');
+    const fi = id;
     if (fi.files.length > 0) {
         for (let i = 0; i <= fi.files.length - 1; i++) {
             const fsize = fi.files.item(i).size;
@@ -228,9 +361,8 @@ function fileInputChangeValue(id) {
 
 }
 
-document.getElementById('box-focus').onclick = () => {
-    document.getElementById('fileUploaded').click();
-}
+
+
 function handleSubmit() {
     const fullNameValue = document.getElementById('full_name').value;
     const dateValue = document.getElementById('date').value;
