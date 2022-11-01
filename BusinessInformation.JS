@@ -209,5 +209,5 @@ const BusinessInformationForm = [
         typeInput: 'FileUpload',
         fileUploaded: null,
         isRequired: true,
-    },
+    }
 ]
