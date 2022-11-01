@@ -29,14 +29,13 @@ const UploadFileField = ({ label, errorId, id}) => {
                                         <div class="flex text-sm text-gray-600">
                                             <label for="file-upload"
                                                 class="relative cursor-pointer mx-auto rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                <span id="text-file">Subir imagen</span>
+                                                <span id="text-file-${id}">Subir imagen</span>
                                                 <input id="${id}" onchange="fileInputChangeValue(${id})"
                                                     name="file-upload" type="file" class="sr-only" >
                                             </label>
                                         </div>
                                         <p class="text-xs text-gray-500">PNG, JPG, GIF ( Min 400kb - Max 2mb )</p>
-                                        <p class="text-xs " id="text-label"></p>
-
+                                        <p class="text-xs " id="text-label-${id}"></p>
                                     </div>
                                 </div>
                                 <p class="text-xs mt-1 error-input-text" id="${errorId}"></p>
@@ -46,14 +45,17 @@ const UploadFileField = ({ label, errorId, id}) => {
 const DataPickerField = ({ label, placeholder, errorId, id }) => {
     return (
         `
+        <div class="mb-5">
+
         <label class="block text-sm font-medium text-gray-700 mb-1">${label}</label>
-        <div class="relative mb-5">
+        <div class="relative ">
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
           <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
         </div>
         <input datepicker type="text" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 sm:text-sm rounded-lg  block w-full pl-10 p-2.5  dark:placeholder-gray-400" placeholder="${placeholder}" id="${id}">
       </div>
       <p class="text-xs text-dark mt-1 error-input-text" id="${errorId}"></p>
+      </div>
       `
     )
 }
@@ -109,15 +111,23 @@ const createDynamicForm = (typeForm) => {
 
 
 function validateForm() {
-    if (formData.typeForm === 'PersonalForm') {
-        PersonalInformationForm.forEach(elementForm => {
+    formData.hasErrors = false;
+    let formValues = {}
+    const FormItems = (formData.typeForm  === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
+    FormItems.forEach(elementForm => {
             const inputField = document.getElementById(elementForm.id);
             document.getElementById(elementForm.errorId).innerText = ''
             if (inputField.type === 'text' || inputField.type === 'number') {
+                if(inputField.value === '' && elementForm.isRequired){
+                    document.getElementById(elementForm.errorId).innerHTML = 'Completa el campo'
+                    formData.hasErrors = true;
+                    return;
+                }
                 if(!elementForm.validationRegex) return;
                 if (elementForm.validationRegex.length > 0) {
                     elementForm.validationRegex.forEach((validationElement) => {
                         if (!validationElement.validation.test(inputField.value)) {
+                            formData.hasErrors = true;
                             document.getElementById(elementForm.errorId).innerText = validationElement.errorText
                         }
                     });
@@ -127,13 +137,22 @@ function validateForm() {
                 if(inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Selecciona una foto PNG o JPG'
             }
         });
-    }
+
+        if(formData.hasErrors) return;
+
+        FormItems.map(elementForm => {
+            if (elementForm.typeInput === 'textField') 
+            if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
+            if(elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
+            if(elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
+        })
 }
 
 
 let fileUploaded;
-function fileInputChangeValue(id) {
-    const fi = id;
+function fileInputChangeValue(input) {
+    const fi = input;
+
     if (fi.files.length > 0) {
         for (let i = 0; i <= fi.files.length - 1; i++) {
             const fsize = fi.files.item(i).size;
@@ -144,44 +163,11 @@ function fileInputChangeValue(id) {
                 alert('El archivo supera el peso maximo');
             } else {
                 fileUploaded = fi.files[0];
-                document.getElementById('text-label').innerHTML = `${fileUploaded.name}`;
-                document.getElementById('text-file').innerHTML = 'Cambiar imagen'
+                document.getElementById(`text-label-${input.id}`).innerHTML = `${fi.files[0].name}`;
+                document.getElementById(`text-file-${input.id}`).innerHTML = 'Cambiar imagen'
             }
         }
     }
 
 }
 
-
-
-function handleSubmit() {
-    const fullNameValue = document.getElementById('full_name').value;
-    const dateValue = document.getElementById('date').value;
-
-    const isValidName = /^[a-zA-Z]+ [a-zA-Z]+$/.test(fullNameValue);
-    const isValidDate = new Date(dateValue) != 'Invalid Date';
-    console.log(new Date(dateValue))
-    const isValidFile = !!fileUploaded
-
-
-    // Input errors
-    const nameError = document.getElementById('name-error');
-    const dateError = document.getElementById('date-error');
-    const fileError = document.getElementById('input-error');
-
-    nameError.innerText = "";
-    dateError.innerText = "";
-    fileError.innerText = "";
-
-    if (!isValidName) return document.getElementById('name-error').innerHTML = 'Incluye tu nombre completo, tal como aparece en tu identificación';
-    if (!isValidDate) return document.getElementById('date-error').innerHTML = 'Incluye una fecha válida';
-    if (!isValidFile) return document.getElementById('input-error').innerHTML = 'Incluye una foto válida';
-
-    fetch('', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-}
