@@ -74,9 +74,9 @@ function openDynamicInputUpload(id) {
 }
 
 const createDynamicForm = (typeForm) => {
-    if (typeForm === 'PersonalForm') {
+        const FormItems = (typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
         formData.typeForm = typeForm;
-        const dynamicForm = PersonalInformationForm.map((elementForm) => {
+        const dynamicForm = FormItems.map((elementForm) => {
             if (elementForm.typeInput === 'textField') return TextField(elementForm)
             if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
             if(elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
@@ -95,7 +95,7 @@ const createDynamicForm = (typeForm) => {
         </div>
     </form>` 
 
-        PersonalInformationForm.forEach((elementForm) => {
+    FormItems.forEach((elementForm) => {
             if(elementForm === 'FileUpload') {
                 document.getElementById(`box-${elementForm.id}`).onclick = () => {
                     document.getElementById(elementForm.id).click();
@@ -103,9 +103,6 @@ const createDynamicForm = (typeForm) => {
             }
         });
         
-    } else {
-        document.getElementById(`form-root`).innerHTML = ''
-    }
 };
 
 
