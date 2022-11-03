@@ -138,7 +138,6 @@ function validateForm() {
         const inputField = document.getElementById(elementForm.id);
         document.getElementById(elementForm.errorId).innerText = ''
         if(elementForm.typeInput === 'Dropdown') { 
-            console.log(inputField.value)
             if(inputField.value == 0 && elementForm.isRequired) {
                 document.getElementById(elementForm.errorId).innerHTML = 'Completa el campo'
                 formData.hasErrors = true;
