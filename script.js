@@ -1,21 +1,42 @@
 let formData = { typeForm: '', hasErrors: false };
 
-const DropDownField = ({label, id, errorId, options}) => {
+function selectValueDropdown(event) {
+    const valueSelected = event.target.value;
+    const idElementSelected = event.target.getAttribute('id');
+    const currentItem = PersonalInformationForm.find(element => element.id === idElementSelected);
+
+    const optionSelected = currentItem.options.find(element => element.value == valueSelected);
+    console.log(document.getElementById(currentItem.id+'-form').children)
+    document.getElementById(currentItem.id+'-form').removeChild(document.getElementById(currentItem.id+'-form').lastChild);
+
+    if (optionSelected.hasChildren) {
+        if(optionSelected.hasChildren.typeInput === 'textField') {
+            document.getElementById(`${idElementSelected}-form`).innerHTML += TextField(optionSelected.hasChildren);
+        }
+        if(optionSelected.hasChildren.typeInput === 'Dropdown') {
+            document.getElementById(`${idElementSelected}-form`).innerHTML += DropDownField(optionSelected.hasChildren);
+        }
+        document.getElementById(`${idElementSelected}`).value = valueSelected;
+    }
+}
+
+const DropDownField = ({ label, id, errorId, options }) => {
     return (
-        `<div class="col-span-6 sm:col-span-3 mb-5">
+        `<div class="col-span-6 sm:col-span-3 my-5" id="${id}-form">
         <label for="first-name" class="block text-sm font-medium text-gray-700">${label}</label>
         <select name="" id="${id}"
+        onchange="selectValueDropdown(event)"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-            ${options.map((option) => `<option value="${option}">${option}</option>`)}
+            ${options.map((option) => `<option value="${option.value}">${option.label || option.value}</option>`)}
         </select>
         <p class="text-xs text-dark mt-1 error-input-text" id="${errorId}"></p>
     </div>`
     )
 }
 
-const UploadFileField = ({ label, errorId, id}) => {
+const UploadFileField = ({ label, errorId, id }) => {
     return (`
-    <div class="mb-5">
+    <div class="my-5">
                                 <label class="block text-sm font-medium text-gray-700">${label}</label>
                                 <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
                                     onclick="openDynamicInputUpload(${id})">
@@ -34,13 +55,13 @@ const UploadFileField = ({ label, errorId, id}) => {
                                                     name="file-upload" type="file" class="sr-only" >
                                             </label>
                                         </div>
-                                        <p class="text-xs text-gray-500">PNG, JPG, GIF ( Min 400kb - Max 2mb )</p>
+                                        <p class="text-xs text-gray-500">PNG, JPG, GIF ( Max 500kb )</p>
                                         <p class="text-xs " id="text-label-${id}"></p>
                                     </div>
                                 </div>
                                 <p class="text-xs mt-1 error-input-text" id="${errorId}"></p>
                             </div>
-    `); 
+    `);
 }
 const DataPickerField = ({ label, placeholder, errorId, id }) => {
     return (
@@ -60,9 +81,9 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
     )
 }
 
-const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text"}) => {
+const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text" }) => {
     return (
-        `<div class="col-span-6 sm:col-span-3 mb-5">
+        `<div class="col-span-6 sm:col-span-3 my-5">
         <label for="${id}" class="block text-sm font-medium text-gray-700">${label}</label>
         <input type="${type}" maxlength=${maxLength} minlength=${minLength} name="${id}" id="${id}" 
         placeholder="${placeholder}" autocomplete="given-name"
@@ -76,15 +97,15 @@ function openDynamicInputUpload(id) {
 }
 
 const createDynamicForm = (typeForm) => {
-        const FormItems = (typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
-        formData.typeForm = typeForm;
-        const dynamicForm = FormItems.map((elementForm) => {
-            if (elementForm.typeInput === 'textField') return TextField(elementForm)
-            if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
-            if(elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
-            if(elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
-        })
-        document.getElementById('form-root').innerHTML =
+    const FormItems = (typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
+    formData.typeForm = typeForm;
+    const dynamicForm = FormItems.map((elementForm) => {
+        if (elementForm.typeInput === 'textField') return TextField(elementForm)
+        if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
+        if (elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
+        if (elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
+    })
+    document.getElementById('form-root').innerHTML =
         `<form onsubmit="event.preventDefault()">
         <div class="overflow-hidden shadow sm:rounded-md">
             <div class="bg-white px-4 py-5 sm:p-6" id="dinamyc_form"> ${dynamicForm.toString().replaceAll(',', ' ')}</div>
@@ -95,16 +116,16 @@ const createDynamicForm = (typeForm) => {
                 </button>
             </div>
         </div>
-    </form>` 
+    </form>`
 
     FormItems.forEach((elementForm) => {
-            if(elementForm === 'FileUpload') {
-                document.getElementById(`box-${elementForm.id}`).onclick = () => {
-                    document.getElementById(elementForm.id).click();
-                }
+        if (elementForm === 'FileUpload') {
+            document.getElementById(`box-${elementForm.id}`).onclick = () => {
+                document.getElementById(elementForm.id).click();
             }
-        });
-        
+        }
+    });
+
 };
 
 
@@ -112,40 +133,48 @@ const createDynamicForm = (typeForm) => {
 
 function validateForm() {
     formData.hasErrors = false;
-    let formValues = {}
-    const FormItems = (formData.typeForm  === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
+    const FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
     FormItems.forEach(elementForm => {
-            const inputField = document.getElementById(elementForm.id);
-            document.getElementById(elementForm.errorId).innerText = ''
-            if (inputField.type === 'text' || inputField.type === 'number') {
-                if(inputField.value === '' && elementForm.isRequired){
-                    document.getElementById(elementForm.errorId).innerHTML = 'Completa el campo'
-                    formData.hasErrors = true;
-                    return;
-                }
-                if(!elementForm.validationRegex) return;
-                if (elementForm.validationRegex.length > 0) {
-                    elementForm.validationRegex.forEach((validationElement) => {
-                        if (!validationElement.validation.test(inputField.value)) {
-                            formData.hasErrors = true;
-                            document.getElementById(elementForm.errorId).innerText = validationElement.errorText
-                        }
-                    });
-                }
+        const inputField = document.getElementById(elementForm.id);
+        document.getElementById(elementForm.errorId).innerText = ''
+        if(elementForm.typeInput === 'Dropdown') { 
+            console.log(inputField.value)
+            if(inputField.value == 0 && elementForm.isRequired) {
+                document.getElementById(elementForm.errorId).innerHTML = 'Completa el campo'
+                formData.hasErrors = true;
+                return;
             }
-            if(inputField.type === 'file'){
-                if(inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Selecciona una foto PNG o JPG'
+        }
+        if (inputField.type === 'text' || inputField.type === 'number') {
+            if (inputField.value === '' && elementForm.isRequired) {
+                document.getElementById(elementForm.errorId).innerHTML = 'Completa el campo'
+                formData.hasErrors = true;
+                return;
             }
-        });
+            if (!elementForm.validationRegex) return;
+            if (elementForm.validationRegex.length > 0) {
+                elementForm.validationRegex.forEach((validationElement) => {
+                    if (!validationElement.validation.test(inputField.value)) {
+                        formData.hasErrors = true;
+                        document.getElementById(elementForm.errorId).innerText = validationElement.errorText
+                    }
+                });
+            }
+        }
 
-        if(formData.hasErrors) return;
+        if (inputField.type === 'file') {
+            if (inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Selecciona una foto PNG o JPG'
+        }
+    });
 
-        FormItems.map(elementForm => {
-            if (elementForm.typeInput === 'textField') 
+    if (formData.hasErrors) return;
+
+    FormItems.map(elementForm => {
+        if (elementForm.typeInput === 'textField')
             if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
-            if(elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
-            if(elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
-        })
+        if (elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
+        if (elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
+    })
 }
 
 
@@ -157,10 +186,8 @@ function fileInputChangeValue(input) {
         for (let i = 0; i <= fi.files.length - 1; i++) {
             const fsize = fi.files.item(i).size;
             const fileSize = Math.round((fsize / 1024));
-            if (fileSize < 400) {
-                alert('El archivo debe pesar mas de 400kb');
-            } else if (fileSize > 2000) {
-                alert('El archivo supera el peso maximo');
+            if (fileSize > 500) {
+                alert('El archivo no debe pesar mas de 500kb');
             } else {
                 fileUploaded = fi.files[0];
                 document.getElementById(`text-label-${input.id}`).innerHTML = `${fi.files[0].name}`;
