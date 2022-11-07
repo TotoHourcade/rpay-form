@@ -7,11 +7,12 @@ const PersonalInformationForm = [
         typeInput: 'textField',
         validationRegex: [
             {
-                validation: /^(?!.*([A-Za-zñÑáéíóúÁÉÍÓÚ\s])\1{2}).+$/, errorText: 'Incluye tu nombre completo, tal como aparece en tu identificación'
+                validation: /^(?!.*([A-Za-zñÑáéíóúÁÉÍÓÚ\s])\1{2}).+$/,
+                errorText: 'Enter a valid name'
             },
             {
                 validation: /^[A-Za-z][A-Za-z]*$/,
-                errorText: 'Incluye tu nombre completo, tal como aparece en tu identificación'
+                errorText: 'Enter your full name as it appear in your ID'
             }
 
         ],
@@ -25,16 +26,7 @@ const PersonalInformationForm = [
         errorId: 'middle_name_error',
         placeholder: 'Middle name',
         typeInput: 'textField',
-        validationRegex: [
-            {
-                validation: /^(?!.*([A-Za-zñÑáéíóúÁÉÍÓÚ\s])\1{2}).+$/, errorText: 'Incluye tu nombre completo, tal como aparece en tu identificación'
-            },
-            {
-                validation: /^[A-Za-z][A-Za-z]*$/,
-                errorText: 'Incluye tu nombre completo, tal como aparece en tu identificación'
-            }
-
-        ],
+        validationRegex: [],
         maxLength: 200,
         minLength: 5,
         isRequired: false,
@@ -47,11 +39,12 @@ const PersonalInformationForm = [
         typeInput: 'textField',
         validationRegex: [
             {
-                validation: /^(?!.*([A-Za-zñÑáéíóúÁÉÍÓÚ\s])\1{2}).+$/, errorText: 'Incluye tu nombre completo, tal como aparece en tu identificación'
+                validation: /^(?!.*([A-Za-zñÑáéíóúÁÉÍÓÚ\s])\1{2}).+$/,
+                errorText: 'Enter a valid name'
             },
             {
                 validation: /^[A-Za-z][A-Za-z]*$/,
-                errorText: 'Incluye tu nombre completo, tal como aparece en tu identificación'
+                errorText: 'Enter your full name as it appear in your ID'
             }
 
         ],

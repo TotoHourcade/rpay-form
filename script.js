@@ -55,7 +55,7 @@ const UploadFileField = ({ label, errorId, id }) => {
                                                     name="file-upload" type="file" class="sr-only" >
                                             </label>
                                         </div>
-                                        <p class="text-xs text-gray-500">PNG, JPG, GIF ( Max 500kb )</p>
+                                        <p class="text-xs text-gray-500">PDF, PNG, JPG ( Max 500kb )</p>
                                         <p class="text-xs " id="text-label-${id}"></p>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
           <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
         </div>
-        <input datepicker type="text" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 sm:text-sm rounded-lg  block w-full pl-10 p-2.5  dark:placeholder-gray-400" placeholder="${placeholder}" id="${id}">
+        <input datepicker onkeypress='dateFormatter(event)' type="text" class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 sm:text-sm rounded-lg  block w-full pl-10 p-2.5  dark:placeholder-gray-400" placeholder="${placeholder}" id="${id}">
       </div>
       <p class="text-xs text-dark mt-1 error-input-text" id="${errorId}"></p>
       </div>
@@ -89,12 +89,22 @@ const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type
         placeholder="${placeholder}" autocomplete="given-name"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             ${isRequired ? '' : `<span class="text-xs text-dark mt-1 " id="${id}-info" style='color:gray'>* Opcional</span>`}
-       
             <p class="text-xs text-dark mt-1 error-input-text" id="${errorId}"></p>
         
     </div>`
     )
 }
+
+function dateFormatter(event){  
+    if(event.target.value.length === 10) event.preventDefault()
+    if(isNaN(event.key)){
+        event.preventDefault();
+    }
+    if(event.target.value.length === 2 || event.target.value.length === 5){
+        event.target.value += '/'
+    }
+}
+
 function openDynamicInputUpload(id) {
     id.click()
 }
@@ -131,25 +141,42 @@ const createDynamicForm = (typeForm) => {
 
 };
 
-
-
-
 function validateForm() {
     formData.hasErrors = false;
     const FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
     FormItems.forEach(elementForm => {
         const inputField = document.getElementById(elementForm.id);
         document.getElementById(elementForm.errorId).innerText = ''
+        if(elementForm.typeInput === 'DatePicker') { 
+            const fullDate = inputField.value.split('/')
+            if(fullDate.length === 3){
+                const month = parseInt(fullDate[0]);
+                const day = parseInt(fullDate[1]);
+                const year = parseInt(fullDate[2]);
+                if(month > 12 || month < 1){
+                    document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
+                }
+                if(day > 31|| day < 1){
+                    document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
+                }
+                if(year < 1940|| year > 2030){
+                    document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
+                }
+            }else{
+                document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
+            }
+        }
+        
         if(elementForm.typeInput === 'Dropdown') { 
             if(inputField.value == 0 && elementForm.isRequired) {
-                document.getElementById(elementForm.errorId).innerHTML = 'Completa el campo'
+                document.getElementById(elementForm.errorId).innerHTML = 'Fill the field'
                 formData.hasErrors = true;
                 return;
             }
         }
         if (inputField.type === 'text' || inputField.type === 'number') {
             if (inputField.value === '' && elementForm.isRequired) {
-                document.getElementById(elementForm.errorId).innerHTML = 'Completa el campo'
+                document.getElementById(elementForm.errorId).innerHTML = 'Fill the field'
                 formData.hasErrors = true;
                 return;
             }
@@ -165,7 +192,7 @@ function validateForm() {
         }
 
         if (inputField.type === 'file') {
-            if (inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Selecciona una foto PNG o JPG'
+            if (inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Select a file PDF, PNG or JPG'
         }
     });
 
