@@ -1,9 +1,9 @@
 const PersonalInformationForm = [
     {
         id: 'first_name',
-        label: 'First name',
+        label: 'Please enter the first name of the account owner',
         errorId: 'first_name_error',
-        placeholder: '',
+        placeholder: 'First name',
         typeInput: 'textField',
         validationRegex: [
             {
@@ -21,9 +21,9 @@ const PersonalInformationForm = [
     },
     {
         id: 'middle_name',
-        label: 'Middle name',
+        label: 'Please enter the middle name of the account owner',
         errorId: 'middle_name_error',
-        placeholder: '',
+        placeholder: 'Middle name',
         typeInput: 'textField',
         validationRegex: [
             {
@@ -37,13 +37,13 @@ const PersonalInformationForm = [
         ],
         maxLength: 200,
         minLength: 5,
-        isRequired: true,
+        isRequired: false,
     },
     {
         id: 'last_name',
-        label: 'Last name',
+        label: 'Please enter the Last name of the account owner',
         errorId: 'last_name_error',
-        placeholder: '',
+        placeholder: 'Last name',
         typeInput: 'textField',
         validationRegex: [
             {
@@ -61,7 +61,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'date_bithday',
-        label: 'Date Of Birth',
+        label: 'Please enter account owner DOB. In the format Month, Day, Year.',
         errorId: 'date_bithday_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',
@@ -69,13 +69,13 @@ const PersonalInformationForm = [
     },
     {
         id: 'tax_country',
-        label: 'Tax Country',
+        label: 'Please enter account owner Tax Country',
         options: [
             {hasChildren: false, label:'Select country', value: 0},
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Tax ID',
+                    label: 'Please enter account owner Tax ID #',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -90,7 +90,7 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Tax ID',
+                    label: 'Please enter account owner Tax ID #',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -104,7 +104,7 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Tax ID',
+                    label: 'Please enter account owner Tax ID #',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -118,7 +118,7 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Tax ID',
+                    label: 'Please enter account owner Tax ID #',
                     errorId: 'tax_id_error',
                     placeholder: '20391923142',
                     typeInput: 'textField',
@@ -132,7 +132,7 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Tax ID',
+                    label: 'Please enter account owner Tax ID #',
                     errorId: 'tax_id_error',
                     placeholder: '00000000000',
                     typeInput: 'textField',
@@ -151,9 +151,9 @@ const PersonalInformationForm = [
     },
     {
         id: 'phone_number',
-        label: 'Phone Number',
+        label: 'Please enter account owner Phone #',
         errorId: 'phone_number_error',
-        placeholder: '541122224444',
+        placeholder: '+1 (123) 123-4567',
         typeInput: 'textField',
         type: 'number',
         validationRegex: [
@@ -166,18 +166,18 @@ const PersonalInformationForm = [
         minLength: 5,
         isRequired: true,
     },
-    {
-        id: 'id_photo',
-        label: 'ID Photo',
-        errorId: 'id_photo_error',
-        placeholder: '',
-        typeInput: 'FileUpload',
-        fileUploaded: null,
-        isRequired: true,
-    },
+    // {
+    //     id: 'id_photo',
+    //     label: 'ID Photo',
+    //     errorId: 'id_photo_error',
+    //     placeholder: '',
+    //     typeInput: 'FileUpload',
+    //     fileUploaded: null,
+    //     isRequired: true,
+    // },
     {
         id: 'street_1',
-        label: 'Street',
+        label: 'Please enter account owner Street Address 1',
         errorId: 'street_1_error',
         placeholder: '',
         typeInput: 'textField',
@@ -354,9 +354,9 @@ const PersonalInformationForm = [
     },
     {
         id: 'document_type',
-        label: 'Validate address document type',
+        label: 'Please select account owner document type that shows proof of address',
         options: [
-            {hasChildren: false, label:'Select type ID', value: 0},
+            {hasChildren: false, label:'Document type', value: 0},
             {hasChildren: false, value: 'Utility bill'},
             {hasChildren: false, value: 'Services bill'},
             {hasChildren: false, value: 'Operational agreement, Bank statement or Annual report'},
@@ -370,7 +370,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'validate_address_photo',
-        label: 'Validate Address',
+        label: 'Please upload the document showing proof of address. Scanned, blurry, unlear images will not be accepted.',
         errorId: 'validate_address_photo_error',
         placeholder: '',
         typeInput: 'FileUpload',
@@ -379,7 +379,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'type_id',
-        label: 'Type ID',
+        label: 'Please enter account owner Id type',
         options: [
             {hasChildren: false, label:'Select type ID', value: 0},
             {hasChildren: false, value: 'Drivers license'},
@@ -395,7 +395,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'validate_id_photo',
-        label: 'ID Document',
+        label: 'Please Upload the ID document. Scanned, blurry, unlear images will not be accepted.',
         errorId: 'validate_id_photo_error',
         placeholder: '',
         typeInput: 'FileUpload',
@@ -404,7 +404,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'country_residence',
-        label: 'Contry of residence',
+        label: 'Please enter the country of residence of the account owner',
         options: [
             {hasChildren: false, label:'Select country', value: 0},
             {hasChildren: false, label:'United States', value: 'United States'},
@@ -419,7 +419,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'expiration_id',
-        label: 'Expiration on ID',
+        label: 'Please enter the expiration date of the document',
         errorId: 'expiration_id_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',

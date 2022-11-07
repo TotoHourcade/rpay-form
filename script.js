@@ -81,14 +81,17 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
     )
 }
 
-const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text" }) => {
+const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired}) => {
     return (
         `<div class="col-span-6 sm:col-span-3 my-5">
         <label for="${id}" class="block text-sm font-medium text-gray-700">${label}</label>
         <input type="${type}" maxlength=${maxLength} minlength=${minLength} name="${id}" id="${id}" 
         placeholder="${placeholder}" autocomplete="given-name"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-        <p class="text-xs text-dark mt-1 error-input-text" id="${errorId}"></p>
+            ${isRequired ? '' : `<span class="text-xs text-dark mt-1 " id="${id}-info" style='color:gray'>* Opcional</span>`}
+       
+            <p class="text-xs text-dark mt-1 error-input-text" id="${errorId}"></p>
+        
     </div>`
     )
 }
