@@ -7,8 +7,12 @@ function selectValueDropdown(event) {
 
     if(!currentItem) return;
     const optionSelected = currentItem.options.find(element => element.value == valueSelected);
+    console.log(document.getElementById(currentItem.id + '-form').childNodes.length);
     if(document.getElementById(currentItem.id + '-form').childNodes.length > 7){
-        document.getElementById(currentItem.id + '-form').removeChild(document.getElementById(currentItem.id + '-form').lastChild);
+        const numberItemsShouldRemove = document.getElementById(currentItem.id + '-form').childNodes.length - 7;
+        Array(numberItemsShouldRemove).fill().forEach(() => {
+            document.getElementById(currentItem.id + '-form').removeChild(document.getElementById(currentItem.id + '-form').lastChild);
+        })
     }
 
     if (optionSelected.hasChildren) {
@@ -17,6 +21,9 @@ function selectValueDropdown(event) {
         }
         if (optionSelected.hasChildren.typeInput === 'Dropdown') {
             document.getElementById(`${idElementSelected}-form`).innerHTML += DropDownField(optionSelected.hasChildren);
+        }
+        if (optionSelected.hasChildren.typeInput === 'FileUpload') {
+            document.getElementById(`${idElementSelected}-form`).innerHTML += UploadFileField(optionSelected.hasChildren);
         }
         document.getElementById(`${idElementSelected}`).value = valueSelected;
     }
@@ -52,7 +59,7 @@ const UploadFileField = ({ label, errorId, id }) => {
                                         <div class="flex text-sm text-gray-600">
                                             <label for="file-upload"
                                                 class="relative cursor-pointer mx-auto rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                <span id="text-file-${id}">Subir imagen</span>
+                                                <span id="text-file-${id}">Upload file</span>
                                                 <input id="${id}" onchange="fileInputChangeValue(${id})"
                                                     name="file-upload" type="file" class="sr-only" >
                                             </label>
@@ -304,7 +311,7 @@ function fileInputChangeValue(input) {
             } else {
                 fileUploaded = fi.files[0];
                 document.getElementById(`text-label-${input.id}`).innerHTML = `${fi.files[0].name}`;
-                document.getElementById(`text-file-${input.id}`).innerHTML = 'Cambiar imagen'
+                document.getElementById(`text-file-${input.id}`).innerHTML = 'Change file'
             }
         }
     }

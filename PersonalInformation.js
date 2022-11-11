@@ -416,7 +416,16 @@ const PersonalInformationForm = [
         label: 'Please enter account owner Id type',
         options: [
             {hasChildren: false, label:'Select type ID', value: 0},
-            {hasChildren: false, value: 'Drivers license'},
+            {hasChildren: {
+                id: 'validate_id_photo',
+                label: 'Please Upload the ID document. Scanned, blurry, unlear images will not be accepted.',
+                errorId: 'validate_id_photo_error',
+                placeholder: '',
+                typeInput: 'FileUpload',
+                fileUploaded: null,
+                isRequired: true,
+                parentOf: 'Drivers license'
+            }, value: 'Drivers license'},
             {hasChildren: false, value: 'Gov ID'},
             {hasChildren: false, value: 'Passport'},
             {hasChildren: false, value: 'Residence Permit'},
