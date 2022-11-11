@@ -74,7 +74,7 @@ const PersonalInformationForm = [
                     typeInput: 'textField',
                     type: 'number',
                     placeholder: 'Enter social security number here',
-                    maxLength: 9, //SSN has 9 digits
+                    maxLength: 9, 
                     minLength: 9,
                     isRequired: true,
                     parentOf: 'United States',
@@ -92,7 +92,7 @@ const PersonalInformationForm = [
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
-                    maxLength: 12, //SSN has 9 digits
+                    maxLength: 12, 
                     minLength: 12,
                     placeholder: 'Enter RIF here',
                     isRequired: true,
@@ -111,7 +111,7 @@ const PersonalInformationForm = [
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
-                    maxLength: 9, //SSN has 9 digits
+                    maxLength: 9,
                     minLength: 8,
                     placeholder: 'Enter RUT here',
                     parentOf: 'Colombia',
@@ -150,7 +150,7 @@ const PersonalInformationForm = [
                     placeholder: 'Enter RUC here',
                     typeInput: 'textField',
                     type:'number',
-                    maxLength: 11, //SSN has 9 digits
+                    maxLength: 11,
                     minLength: 7,
                     isRequired: true,
                     parentOf:'Panama',

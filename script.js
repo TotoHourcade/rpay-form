@@ -1,5 +1,7 @@
 let formData = { typeForm: '', hasErrors: false };
 
+// Create a new children when a dropdown value has children.
+// Also, delete the last children added if needs
 function selectValueDropdown(event) {
     const valueSelected = event.target.value;
     const idElementSelected = event.target.getAttribute('id');
@@ -104,6 +106,7 @@ const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type
     )
 }
 
+// Auto format the date input field, and validate correct date.
 function dateFormatter(event) {
     //Validate the month ( Max 12 - Min 0 )
     if (event.target.value.length === 0 && event.key > 1) {
@@ -151,10 +154,10 @@ function dateFormatter(event) {
 }
 
 function openDynamicInputUpload(id) {
-    console.log(id)
     id.click()
 }
 
+// Core of the app
 const createDynamicForm = (typeForm) => {
     const FormItems = (typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
     formData.typeForm = typeForm;
@@ -184,10 +187,25 @@ const createDynamicForm = (typeForm) => {
             }
         }
     });
-
 };
 
+function fileInputChangeValue(input) {
+    const fi = input;
+    if (fi.files.length > 0) {
+        for (let i = 0; i <= fi.files.length - 1; i++) {
+            const fsize = fi.files.item(i).size;
+            const fileSize = Math.round((fsize / 1024));
+            if (fileSize > 500) {
+                alert('El archivo no debe pesar mas de 500kb');
+            } else {
+                document.getElementById(`text-label-${input.id}`).innerHTML = `${fi.files[0].name}`;
+                document.getElementById(`text-file-${input.id}`).innerHTML = 'Change file'
+            }
+        }
+    }
+}
 
+// *** Validations *** //
 function validateDate(inputField, elementForm) {
     const fullDate = inputField.value.split('/')
     if (fullDate.length === 3) {
@@ -296,26 +314,5 @@ function validateForm() {
     })
     // This is the data to send to the server
     console.log(dataForm)
-}
-
-
-let fileUploaded;
-function fileInputChangeValue(input) {
-    const fi = input;
-
-    if (fi.files.length > 0) {
-        for (let i = 0; i <= fi.files.length - 1; i++) {
-            const fsize = fi.files.item(i).size;
-            const fileSize = Math.round((fsize / 1024));
-            if (fileSize > 500) {
-                alert('El archivo no debe pesar mas de 500kb');
-            } else {
-                fileUploaded = fi.files[0];
-                document.getElementById(`text-label-${input.id}`).innerHTML = `${fi.files[0].name}`;
-                document.getElementById(`text-file-${input.id}`).innerHTML = 'Change file'
-            }
-        }
-    }
-
 }
 
