@@ -12,7 +12,7 @@ const PersonalInformationForm = [
             },
             {
                 validation: /^[A-Za-z][A-Za-z]*$/,
-                errorText: 'Enter your full name as it appear in your ID'
+                errorText: 'Enter your name as it appear in your ID'
             }
 
         ],
@@ -44,7 +44,7 @@ const PersonalInformationForm = [
             },
             {
                 validation: /^[A-Za-z][A-Za-z]*$/,
-                errorText: 'Enter your full name as it appear in your ID'
+                errorText: 'Enter your last name as it appear in your ID'
             }
 
         ],
@@ -54,7 +54,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'date_bithday',
-        label: 'Please enter account owner DOB. In the format Month, Day, Year.',
+        label: 'Please enter account owner date of birth. In the format Month, Day, Year.',
         errorId: 'date_bithday_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',
@@ -68,12 +68,12 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Please enter account owner Tax ID #',
+                    label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
                     type: 'number',
-                    placeholder: '123001234',
+                    placeholder: 'Enter social security number here',
                     maxLength: 9, //SSN has 9 digits
                     minLength: 9,
                     isRequired: true,
@@ -83,13 +83,13 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Please enter account owner Tax ID #',
+                    label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
                     maxLength: 12, //SSN has 9 digits
                     minLength: 12,
-                    placeholder: 'V-12345678-0',
+                    placeholder: 'Enter RIF here',
                     isRequired: true,
                 },
                 value:'Venezuela',
@@ -97,13 +97,13 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Please enter account owner Tax ID #',
+                    label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
                     maxLength: 9, //SSN has 9 digits
                     minLength: 8,
-                    placeholder: '123456789',
+                    placeholder: 'Enter RUT here',
                     isRequired: true,
                 },
                 value:'Colombia',
@@ -111,9 +111,9 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Please enter account owner Tax ID #',
+                    label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
-                    placeholder: '20391923142',
+                    placeholder: 'Enter CUIT/CUIL here',
                     typeInput: 'textField',
                     type:'number',
                     maxLength: 9, //SSN has 9 digits
@@ -125,9 +125,9 @@ const PersonalInformationForm = [
             {
                 hasChildren:  {
                     id: 'tax_id',
-                    label: 'Please enter account owner Tax ID #',
+                    label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
-                    placeholder: '00000000000',
+                    placeholder: 'Enter RUC here',
                     typeInput: 'textField',
                     type:'number',
                     maxLength: 11, //SSN has 9 digits
@@ -144,15 +144,14 @@ const PersonalInformationForm = [
     },
     {
         id: 'phone_number',
-        label: 'Please enter account owner Phone #',
+        label: 'Please enter the account owners number including country code',
         errorId: 'phone_number_error',
-        placeholder: '+1 (123) 123-4567',
+        placeholder: 'Phone number',
         typeInput: 'textField',
-        type: 'number',
         validationRegex: [
             {
-                validation: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
-                errorText: 'El telefono ingresado es invalido'
+                validation: /[0-9]/,
+                errorText: 'Please remove special characters'
             },
         ],
         maxLength: 200,
@@ -168,28 +167,7 @@ const PersonalInformationForm = [
     //     fileUploaded: null,
     //     isRequired: true,
     // },
-    {
-        id: 'street_1',
-        label: 'Please enter account owner Street Address 1',
-        errorId: 'street_1_error',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [],
-        maxLength: 200,
-        minLength: 2,
-        isRequired: true,
-    },
-    {
-        id: 'street_2',
-        label: 'Street 2',
-        errorId: 'street_2_error',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [],
-        maxLength: 200,
-        minLength: 2,
-        isRequired: false,
-    },
+    
     {
         id: 'country_selection',
         hasChildren: 'state_related_selection',
@@ -329,7 +307,10 @@ const PersonalInformationForm = [
         errorId: 'city_related_error',
         placeholder: '',
         typeInput: 'textField',
-        validationRegex: [],
+        validationRegex: [{ 
+            validation: /(.*[a-z]){2}/i,
+            errorText: 'City needs to be min 2 characters'
+        }],
         maxLength: 50,
         minLength: 2,
         isRequired: true,
@@ -344,6 +325,34 @@ const PersonalInformationForm = [
         maxLength: 50,
         minLength: 2,
         isRequired: true,
+    },
+    {
+        id: 'street_1',
+        label: 'Please enter account owner Street Address 1',
+        errorId: 'street_1_error',
+        placeholder: '',
+        typeInput: 'textField',
+        validationRegex: [{ 
+            validation: /(.*[a-z0-9 ]){3}/i,
+            errorText: 'Enter your street address correctly'
+        }],
+        maxLength: 200,
+        minLength: 2,
+        isRequired: true,
+    },
+    {
+        id: 'street_2',
+        label: 'Street 2',
+        errorId: 'street_2_error',
+        placeholder: '',
+        typeInput: 'textField',
+        validationRegex: [{ 
+            validation: /(.*[a-z]){3}/i,
+            errorText: 'Enter your street address correctly'
+        }],
+        maxLength: 200,
+        minLength: 2,
+        isRequired: false,
     },
     {
         id: 'document_type',

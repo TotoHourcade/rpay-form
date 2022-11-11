@@ -96,10 +96,46 @@ const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type
 }
 
 function dateFormatter(event){  
+    //Validate the month ( Max 12 - Min 0 )
+    if(event.target.value.length === 0 && event.key > 1){
+        event.preventDefault()
+    }
+    if(event.target.value.length === 1){
+        if(event.target.value == 1){
+            if(event.key > 2){
+                event.preventDefault()
+            }
+        }
+    }
+
+    // Validate the day ( Max 31 - min 0 )
+    if(event.target.value.length === 3 && event.key > 3){
+        event.preventDefault()
+    }
+    if(event.target.value.length === 4){
+        if( event.target.value.charAt(event.target.value.length - 1) == 3){
+            if(event.key > 1){
+                event.preventDefault()
+            }
+        }
+    }
+    if(event.target.value.length === 1){
+        if(event.target.value == 1){
+            if(event.key > 2){
+                event.preventDefault()
+            }
+        }
+    }
+
+    // Avoid more characters
     if(event.target.value.length === 10) event.preventDefault()
+
+    // Validate if the input is a string
     if(isNaN(event.key)){
         event.preventDefault();
     }
+
+    // Add the format of the date
     if(event.target.value.length === 2 || event.target.value.length === 5){
         event.target.value += '/'
     }
@@ -159,7 +195,7 @@ function validateForm() {
                 if(day > 31|| day < 1){
                     document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
                 }
-                if(year < 1940|| year > 2030){
+                if(year > new Date().getFullYear()){
                     document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
                 }
             }else{
@@ -181,7 +217,7 @@ function validateForm() {
                 return;
             }
             if (!elementForm.validationRegex) return;
-            if (elementForm.validationRegex.length > 0) {
+            if (elementForm.validationRegex.length > 0 && inputField.value != '') {
                 elementForm.validationRegex.forEach((validationElement) => {
                     if (!validationElement.validation.test(inputField.value)) {
                         formData.hasErrors = true;
