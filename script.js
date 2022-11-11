@@ -151,6 +151,7 @@ function dateFormatter(event) {
 }
 
 function openDynamicInputUpload(id) {
+    console.log(id)
     id.click()
 }
 

@@ -437,9 +437,9 @@ const PersonalInformationForm = [
         isRequired: true,
     },
     {
-        id: 'validate_id_photo',
+        id: 'validate_id_photo_2',
         label: 'Please Upload the ID document. Scanned, blurry, unlear images will not be accepted.',
-        errorId: 'validate_id_photo_error',
+        errorId: 'validate_id_photo_error_2',
         placeholder: '',
         typeInput: 'FileUpload',
         fileUploaded: null,
