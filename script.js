@@ -7,7 +7,9 @@ function selectValueDropdown(event) {
 
     if(!currentItem) return;
     const optionSelected = currentItem.options.find(element => element.value == valueSelected);
-    document.getElementById(currentItem.id + '-form').removeChild(document.getElementById(currentItem.id + '-form').lastChild);
+    if(document.getElementById(currentItem.id + '-form').childNodes.length > 7){
+        document.getElementById(currentItem.id + '-form').removeChild(document.getElementById(currentItem.id + '-form').lastChild);
+    }
 
     if (optionSelected.hasChildren) {
         if (optionSelected.hasChildren.typeInput === 'textField') {
@@ -83,7 +85,7 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
 
 const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired }) => {
     return (
-        `<div class="col-span-6 sm:col-span-3 my-5">
+        `<div class="col-span-6 sm:col-span-3 my-5" id="${id}-form">
         <label for="${id}" class="block text-sm font-medium text-gray-700">${label}</label>
         <input type="${type}" maxlength=${maxLength} minlength=${minLength} name="${id}" id="${id}" 
         placeholder="${placeholder}" autocomplete="given-name"
