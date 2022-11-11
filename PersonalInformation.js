@@ -77,6 +77,11 @@ const PersonalInformationForm = [
                     maxLength: 9, //SSN has 9 digits
                     minLength: 9,
                     isRequired: true,
+                    parentOf: 'United States',
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                 },
                 value:'United States',
             },
@@ -91,6 +96,11 @@ const PersonalInformationForm = [
                     minLength: 12,
                     placeholder: 'Enter RIF here',
                     isRequired: true,
+                    parentOf: 'Venezuela',
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                 },
                 value:'Venezuela',
             },
@@ -104,7 +114,12 @@ const PersonalInformationForm = [
                     maxLength: 9, //SSN has 9 digits
                     minLength: 8,
                     placeholder: 'Enter RUT here',
+                    parentOf: 'Colombia',
                     isRequired: true,
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                 },
                 value:'Colombia',
             },
@@ -119,6 +134,11 @@ const PersonalInformationForm = [
                     maxLength: 9, //SSN has 9 digits
                     minLength: 8,
                     isRequired: true,
+                    parentOf:'Argentina',
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                 },
                 value:'Argentina',
             },
@@ -133,6 +153,11 @@ const PersonalInformationForm = [
                     maxLength: 11, //SSN has 9 digits
                     minLength: 7,
                     isRequired: true,
+                    parentOf:'Panama',
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                 },
                 value:'Panama',
             },
@@ -158,16 +183,6 @@ const PersonalInformationForm = [
         minLength: 5,
         isRequired: true,
     },
-    // {
-    //     id: 'id_photo',
-    //     label: 'ID Photo',
-    //     errorId: 'id_photo_error',
-    //     placeholder: '',
-    //     typeInput: 'FileUpload',
-    //     fileUploaded: null,
-    //     isRequired: true,
-    // },
-    
     {
         id: 'country_selection',
         hasChildren: 'state_related_selection',
@@ -234,6 +249,7 @@ const PersonalInformationForm = [
                 placeholder: '',
                 typeInput: 'Dropdown',
                 isRequired: true,
+                parentOf: 'United States',
             }, value:'United States', label: 'United States'},
             {hasChildren: 
                 {
@@ -242,9 +258,13 @@ const PersonalInformationForm = [
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
-                    validationRegex: [],
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                     maxLength: 50,
                     minLength: 2,
+                    parentOf: 'Venezuela',
                     isRequired: true,
                 },
                 value:'Venezuela',
@@ -257,10 +277,14 @@ const PersonalInformationForm = [
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
-                    validationRegex: [],
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                     maxLength: 50,
                     minLength: 2,
                     isRequired: true,
+                    parentOf: 'Colombia',
                 },
                 value:'Colombia',
                 label: 'Colombia'
@@ -272,10 +296,14 @@ const PersonalInformationForm = [
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
-                    validationRegex: [],
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                     maxLength: 50,
                     minLength: 2,
                     isRequired: true,
+                    parentOf: 'Argentina',
                 },
                 value:'Argentina',
                 label: 'Argentina'
@@ -287,10 +315,14 @@ const PersonalInformationForm = [
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
-                    validationRegex: [],
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
                     maxLength: 50,
                     minLength: 2,
                     isRequired: true,
+                    parentOf: 'Panama',
                 },
                 value:'Panama',
                 label: 'Panama'

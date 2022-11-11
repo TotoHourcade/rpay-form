@@ -5,15 +5,15 @@ function selectValueDropdown(event) {
     const idElementSelected = event.target.getAttribute('id');
     const currentItem = PersonalInformationForm.find(element => element.id === idElementSelected);
 
+    if(!currentItem) return;
     const optionSelected = currentItem.options.find(element => element.value == valueSelected);
-    console.log(document.getElementById(currentItem.id+'-form').children)
-    document.getElementById(currentItem.id+'-form').removeChild(document.getElementById(currentItem.id+'-form').lastChild);
+    document.getElementById(currentItem.id + '-form').removeChild(document.getElementById(currentItem.id + '-form').lastChild);
 
     if (optionSelected.hasChildren) {
-        if(optionSelected.hasChildren.typeInput === 'textField') {
+        if (optionSelected.hasChildren.typeInput === 'textField') {
             document.getElementById(`${idElementSelected}-form`).innerHTML += TextField(optionSelected.hasChildren);
         }
-        if(optionSelected.hasChildren.typeInput === 'Dropdown') {
+        if (optionSelected.hasChildren.typeInput === 'Dropdown') {
             document.getElementById(`${idElementSelected}-form`).innerHTML += DropDownField(optionSelected.hasChildren);
         }
         document.getElementById(`${idElementSelected}`).value = valueSelected;
@@ -81,7 +81,7 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
     )
 }
 
-const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired}) => {
+const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired }) => {
     return (
         `<div class="col-span-6 sm:col-span-3 my-5">
         <label for="${id}" class="block text-sm font-medium text-gray-700">${label}</label>
@@ -95,48 +95,48 @@ const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type
     )
 }
 
-function dateFormatter(event){  
+function dateFormatter(event) {
     //Validate the month ( Max 12 - Min 0 )
-    if(event.target.value.length === 0 && event.key > 1){
+    if (event.target.value.length === 0 && event.key > 1) {
         event.preventDefault()
     }
-    if(event.target.value.length === 1){
-        if(event.target.value == 1){
-            if(event.key > 2){
+    if (event.target.value.length === 1) {
+        if (event.target.value == 1) {
+            if (event.key > 2) {
                 event.preventDefault()
             }
         }
     }
 
     // Validate the day ( Max 31 - min 0 )
-    if(event.target.value.length === 3 && event.key > 3){
+    if (event.target.value.length === 3 && event.key > 3) {
         event.preventDefault()
     }
-    if(event.target.value.length === 4){
-        if( event.target.value.charAt(event.target.value.length - 1) == 3){
-            if(event.key > 1){
+    if (event.target.value.length === 4) {
+        if (event.target.value.charAt(event.target.value.length - 1) == 3) {
+            if (event.key > 1) {
                 event.preventDefault()
             }
         }
     }
-    if(event.target.value.length === 1){
-        if(event.target.value == 1){
-            if(event.key > 2){
+    if (event.target.value.length === 1) {
+        if (event.target.value == 1) {
+            if (event.key > 2) {
                 event.preventDefault()
             }
         }
     }
 
     // Avoid more characters
-    if(event.target.value.length === 10) event.preventDefault()
+    if (event.target.value.length === 10) event.preventDefault()
 
     // Validate if the input is a string
-    if(isNaN(event.key)){
+    if (isNaN(event.key)) {
         event.preventDefault();
     }
 
     // Add the format of the date
-    if(event.target.value.length === 2 || event.target.value.length === 5){
+    if (event.target.value.length === 2 || event.target.value.length === 5) {
         event.target.value += '/'
     }
 }
@@ -177,66 +177,99 @@ const createDynamicForm = (typeForm) => {
 
 };
 
+
+function validateDate(inputField, elementForm) {
+    const fullDate = inputField.value.split('/')
+    if (fullDate.length === 3) {
+        const month = parseInt(fullDate[0]);
+        const day = parseInt(fullDate[1]);
+        const year = parseInt(fullDate[2]);
+        if (month > 12 || month < 1) {
+            document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
+            formData.hasErrors = true;
+
+        }
+        if (day > 31 || day < 1) {
+            document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
+            formData.hasErrors = true;
+
+        }
+        if (year > new Date().getFullYear()) {
+            document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
+            formData.hasErrors = true;
+
+        }
+    } else {
+        document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
+        formData.hasErrors = true;
+    }
+}
+
+function validateDropdown(inputField, elementForm) {
+    if (inputField.value == 0 && elementForm.isRequired) {
+        document.getElementById(elementForm.errorId).innerHTML = 'Select an option'
+        formData.hasErrors = true;
+        return;
+    }else{
+        document.getElementById(elementForm.errorId).innerHTML = ''
+    }
+    if (elementForm.options.length > 0) {
+        elementForm.options.forEach((option) => {
+            if (option.hasChildren && inputField.value == option.hasChildren.parentOf) {
+                const childrenNode = document.getElementById(option.hasChildren.id);
+                const typeChildren = option.hasChildren.typeInput;
+                if (childrenNode.type == 'text' || childrenNode.type == 'number') {
+                    console.log(childrenNode, option.hasChildren)
+                    validateTextField(childrenNode, option.hasChildren);
+                }
+                if( typeChildren == 'Dropdown') validateDropdown(childrenNode, option.hasChildren);    
+            }
+        })
+    }
+}
+
+function validateTextField(inputField, elementForm) {
+    if (inputField.value === '' && elementForm.isRequired) {
+        document.getElementById(elementForm.errorId).innerHTML = 'Fill the field'
+        formData.hasErrors = true;
+        return;
+    }else{
+        document.getElementById(elementForm.errorId).innerHTML = ''
+    }
+    if (!elementForm.validationRegex) return;
+    if (elementForm.validationRegex.length > 0 && inputField.value != '') {
+        elementForm.validationRegex.forEach((validationElement) => {
+            if (!validationElement.validation.test(inputField.value)) {
+                formData.hasErrors = true;
+                document.getElementById(elementForm.errorId).innerText = validationElement.errorText
+            }
+        });
+    }
+}
+
 function validateForm() {
     formData.hasErrors = false;
     const FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
     FormItems.forEach(elementForm => {
         const inputField = document.getElementById(elementForm.id);
         document.getElementById(elementForm.errorId).innerText = ''
-        if(elementForm.typeInput === 'DatePicker') { 
-            const fullDate = inputField.value.split('/')
-            if(fullDate.length === 3){
-                const month = parseInt(fullDate[0]);
-                const day = parseInt(fullDate[1]);
-                const year = parseInt(fullDate[2]);
-                if(month > 12 || month < 1){
-                    document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
-                }
-                if(day > 31|| day < 1){
-                    document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
-                }
-                if(year > new Date().getFullYear()){
-                    document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
-                }
-            }else{
-                document.getElementById(elementForm.errorId).innerHTML = 'Enter a valid date with the correct format (MM/DD/YYYY)';
-            }
-        }
+
+        if (elementForm.typeInput === 'DatePicker') validateDate(inputField, elementForm);
+        if (elementForm.typeInput === 'Dropdown') validateDropdown(inputField, elementForm);
+        if (inputField.type === 'text' || inputField.type === 'number') validateTextField(inputField, elementForm)
         
-        if(elementForm.typeInput === 'Dropdown') { 
-            if(inputField.value == 0 && elementForm.isRequired) {
-                document.getElementById(elementForm.errorId).innerHTML = 'Fill the field'
-                formData.hasErrors = true;
-                return;
-            }
-        }
-        if (inputField.type === 'text' || inputField.type === 'number') {
-            if (inputField.value === '' && elementForm.isRequired) {
-                document.getElementById(elementForm.errorId).innerHTML = 'Fill the field'
-                formData.hasErrors = true;
-                return;
-            }
-            if (!elementForm.validationRegex) return;
-            if (elementForm.validationRegex.length > 0 && inputField.value != '') {
-                elementForm.validationRegex.forEach((validationElement) => {
-                    if (!validationElement.validation.test(inputField.value)) {
-                        formData.hasErrors = true;
-                        document.getElementById(elementForm.errorId).innerText = validationElement.errorText
-                    }
-                });
-            }
-        }
 
         if (inputField.type === 'file') {
             if (inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Select a file PDF, PNG or JPG'
         }
+
     });
 
     if (formData.hasErrors) return;
 
     FormItems.map(elementForm => {
         if (elementForm.typeInput === 'textField')
-            if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
+        if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
         if (elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
         if (elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
     })
