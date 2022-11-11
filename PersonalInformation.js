@@ -340,7 +340,7 @@ const PersonalInformationForm = [
         placeholder: '',
         typeInput: 'textField',
         validationRegex: [{ 
-            validation: /(.*[a-z]){2}/i,
+            validation: /(.*[a-z0-9]){2}/i,
             errorText: 'City needs to be min 2 characters'
         }],
         maxLength: 50,

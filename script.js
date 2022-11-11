@@ -221,7 +221,6 @@ function validateDropdown(inputField, elementForm) {
                 const childrenNode = document.getElementById(option.hasChildren.id);
                 const typeChildren = option.hasChildren.typeInput;
                 if (childrenNode.type == 'text' || childrenNode.type == 'number') {
-                    console.log(childrenNode, option.hasChildren)
                     validateTextField(childrenNode, option.hasChildren);
                 }
                 if( typeChildren == 'Dropdown') validateDropdown(childrenNode, option.hasChildren);    
@@ -259,22 +258,36 @@ function validateForm() {
         if (elementForm.typeInput === 'DatePicker') validateDate(inputField, elementForm);
         if (elementForm.typeInput === 'Dropdown') validateDropdown(inputField, elementForm);
         if (inputField.type === 'text' || inputField.type === 'number') validateTextField(inputField, elementForm)
-        
-
         if (inputField.type === 'file') {
             if (inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Select a file PDF, PNG or JPG'
         }
-
     });
 
     if (formData.hasErrors) return;
 
+    let dataForm = {};
     FormItems.map(elementForm => {
+        console.log(dataForm)
+        const inputField = document.getElementById(elementForm.id);
+
+        dataForm = {...dataForm, [elementForm.id]: inputField.value}
+        if(elementForm.typeInput === 'Dropdown'){
+            if (elementForm.options.length > 0) {
+                elementForm.options.forEach((option) => {
+                    if (option.hasChildren && inputField.value == option.hasChildren.parentOf) {
+                        const childrenNode = document.getElementById(option.hasChildren.id);
+                        dataForm = {...dataForm, [option.hasChildren.id]: childrenNode.value}
+                    }
+                })
+            }
+        }
         if (elementForm.typeInput === 'textField')
         if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
         if (elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
         if (elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
     })
+    // This is the data to send to the server
+    console.log(dataForm)
 }
 
 
