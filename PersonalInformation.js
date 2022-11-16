@@ -19,6 +19,8 @@ const PersonalInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: true,
+        errorMessage: "Enter your full 'first name'",
+        col: 4
     },
     {
         id: 'middle_name',
@@ -30,6 +32,8 @@ const PersonalInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: false,
+        errorMessage: "Enter your full 'middle name'",
+        col: 4
     },
     {
         id: 'last_name',
@@ -51,11 +55,13 @@ const PersonalInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: true,
+        errorMessage: "Enter your full 'last name'",
+        col: 4
     },
     {
-        id: 'date_bithday',
+        id: 'date_birthday',
         label: 'Please enter account owner date of birth. In the format Month, Day, Year.',
-        errorId: 'date_bithday_error',
+        errorId: 'date_birthday_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',
         isRequired: true,
@@ -175,8 +181,8 @@ const PersonalInformationForm = [
         typeInput: 'textField',
         validationRegex: [
             {
-                validation: /[0-9]/,
-                errorText: 'Please remove special characters'
+                validation: /^[0-9]*$/,
+                errorText: 'Please remove special characters +()- etc'
             },
         ],
         maxLength: 200,
