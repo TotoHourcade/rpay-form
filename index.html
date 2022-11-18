@@ -20,13 +20,13 @@
                 <div class="mt-4 space-y-4">
                     <div class="flex items-center">
                         <input id="push-everything" 
-                        onclick="createDynamicForm('PersonalForm')" name="push-notifications" type="radio"
+                        onclick="startForm('PersonalForm')" name="push-notifications" type="radio"
                             class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                         <label for="push-everything" class="ml-3 block text-sm font-medium text-gray-700">Personal</label>
                     </div>
                     <div class="flex items-center">
                         <input id="push-email" 
-                        onclick="createDynamicForm('BusinessForm')" name="push-notifications" type="radio"
+                        onclick="startForm('BusinessForm')" name="push-notifications" type="radio"
                             class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                         <label for="push-email" class="ml-3 block text-sm font-medium text-gray-700">Business</label>
                     </div>
@@ -34,7 +34,6 @@
                 </div>
             </fieldset>
             <div id="form-root">
-
             </div>
         </div>
         <script src="BusinessInformationForm.js"></script>

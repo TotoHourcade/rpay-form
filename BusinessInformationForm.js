@@ -50,7 +50,7 @@ const BusinessInformationForm = [
     },
     {
         id: 'tax_country',
-        label: 'Please enter account owner Tax Country',
+        label: 'Please enter the account owner Tax Country',
         options: [
             {hasChildren: false, label:'Select country', value: 0},
             {
@@ -175,7 +175,7 @@ const BusinessInformationForm = [
     },
     {
         id: 'phone_number',
-        label: 'Please enter the account owners number including country code',
+        label: 'Please enter the account owner number including country code',
         errorId: 'phone_number_error',
         placeholder: 'Phone number',
         typeInput: 'textField',
@@ -196,42 +196,6 @@ const BusinessInformationForm = [
         placeholder: '',
         typeInput: 'FileUpload',
         fileUploaded: null,
-        isRequired: true,
-    },
-    {
-        id: 'part?',
-        label: 'Everyone who has more that 25% of business uploads Shareholders info ***copy personal info from other form but add two fields: Company role and email Must include proof of ID and Proof of address along with uploads',
-        errorId: 'part?',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [],
-        maxLength: 200,
-        minLength: 2,
-        isRequired: true,
-    },
-    {
-        id: 'company_role',
-        label: 'Company Role',
-        errorId: 'company_role_error',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [],
-        maxLength: 200,
-        minLength: 2,
-        isRequired: true,
-    },
-    {
-        id: 'shareholder_email',
-        label: 'Shareholder Email',
-        errorId: 'shareholder_email_error',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [{
-            validation: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
-            errorText: 'Please enter a valid email'
-    }],
-        maxLength: 200,
-        minLength: 2,
         isRequired: true,
     },
     {
@@ -443,7 +407,9 @@ const BusinessInformationForm = [
     {
         id: 'validate_addres_type',
         label: 'Validate address document type',
-        options: ['?'],
+        options: [
+            {hasChildren:false, label: 'Bank statement with less than 90 days', value: 'Bank statement'},
+        ],
         errorId: 'validate_addres_type_error',
         placeholder: '',
         typeInput: 'Dropdown',
@@ -478,5 +444,14 @@ const BusinessInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: true,
+    },
+    {
+        id: "add_shareholder",
+        label: 'Everyone who has more that 25% of business uploads Shareholders info',
+        buttonLabel: 'Add Shareholder',
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>',
+        placeholder: '',
+        typeInput: 'Button',
+        onPress: 'addShareholder()'
     },
 ]

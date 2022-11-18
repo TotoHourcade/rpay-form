@@ -60,7 +60,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'date_birthday',
-        label: 'Please enter account owner date of birth. In the format Month, Day, Year.',
+        label: 'Please enter the account owner date of birth. In the format Month, Day, Year.',
         errorId: 'date_birthday_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',
@@ -68,7 +68,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'tax_country',
-        label: 'Please enter account owner Tax Country',
+        label: 'Please enter the account owner Tax Country',
         options: [
             {hasChildren: false, label:'Select country', value: 0},
             {
@@ -366,7 +366,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'street_1',
-        label: 'Please enter account owner Street Address 1',
+        label: 'Please enter the account owner Street Address 1',
         errorId: 'street_1_error',
         placeholder: '',
         typeInput: 'textField',
@@ -394,14 +394,14 @@ const PersonalInformationForm = [
     },
     {
         id: 'document_type',
-        label: 'Please select account owner document type that shows proof of address',
+        label: 'Please select the account owner document type that shows proof of address. The document must be at least 90 days old',
         options: [
             {hasChildren: false, label:'Document type', value: 0},
             {hasChildren: false, value: 'Utility bill'},
-            {hasChildren: false, value: 'Services bill'},
-            {hasChildren: false, value: 'Operational agreement, Bank statement or Annual report'},
-            {hasChildren: false, value: 'CUIT or back of DNI (ARS)'},
-            {hasChildren: false, value: 'Back of ID'},
+            {hasChildren: false, value: 'Drivers License w/Address'},
+            {hasChildren: false, value: 'Tax document'},
+            {hasChildren: false, value: 'Gov ID w/ Address'},
+            {hasChildren: false, value: 'Rental Lease agreement'},
         ],
         errorId: 'document_type_error',
         placeholder: '',
@@ -419,12 +419,12 @@ const PersonalInformationForm = [
     },
     {
         id: 'type_id',
-        label: 'Please enter account owner Id type',
+        label: 'Please enter the account owner ID type',
         options: [
             {hasChildren: false, label:'Select type ID', value: 0},
             {hasChildren: {
                 id: 'validate_id_photo',
-                label: 'Please Upload the ID document. Scanned, blurry, unlear images will not be accepted.',
+                label: 'Please Upload the back of the drivers license. Scanned, blurry, unlear images will not be accepted.',
                 errorId: 'validate_id_photo_error',
                 placeholder: '',
                 typeInput: 'FileUpload',
@@ -432,10 +432,27 @@ const PersonalInformationForm = [
                 isRequired: true,
                 parentOf: 'Drivers license'
             }, value: 'Drivers license'},
-            {hasChildren: false, value: 'Gov ID'},
+            {hasChildren: {
+                id: 'validate_id_photo',
+                label: 'Please Upload the back of the goverment ID. Scanned, blurry, unlear images will not be accepted.',
+                errorId: 'validate_id_photo_error',
+                placeholder: '',
+                typeInput: 'FileUpload',
+                fileUploaded: null,
+                isRequired: true,
+                parentOf: 'Gov ID'
+            }, value: 'Gov ID'},
             {hasChildren: false, value: 'Passport'},
-            {hasChildren: false, value: 'Residence Permit'},
-            {hasChildren: false, value: 'RIF'},
+            {hasChildren: {
+                id: 'validate_id_photo',
+                label: 'Please Upload the back of the residence permit. Scanned, blurry, unlear images will not be accepted.',
+                errorId: 'validate_id_photo_error',
+                placeholder: '',
+                typeInput: 'FileUpload',
+                fileUploaded: null,
+                isRequired: true,
+                parentOf: 'Residence Permit'
+            }, value: 'Residence Permit'},
         ],
         errorId: 'type_id_error',
         placeholder: '',
@@ -444,7 +461,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'validate_id_photo_2',
-        label: 'Please Upload the ID document. Scanned, blurry, unlear images will not be accepted.',
+        label: 'Please Upload the front of the document. Scanned, blurry, unlear images will not be accepted.',
         errorId: 'validate_id_photo_error_2',
         placeholder: '',
         typeInput: 'FileUpload',
