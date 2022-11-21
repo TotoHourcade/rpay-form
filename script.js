@@ -432,7 +432,7 @@ const getShareholdersForm = (shareholder) => {
 }
 
 const addShareholder = () => {
-    if (shareholdersList.length == 3) return
+    if (shareholdersList.length == 4) return
 
     const shareholders = shareholdersList.length + 1;
     const ShareholdersForm = getShareholdersForm(shareholders);
