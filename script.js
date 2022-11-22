@@ -390,6 +390,12 @@ function validateForm() {
         if (elementForm.typeInput === 'Dropdown') {
             if (elementForm.options.length > 0) {
                 elementForm.options.forEach((option) => {
+                    if(Array.isArray(option.hasChildren)){
+                        option.hasChildren.forEach((child) => {
+                            const childrenNode = document.getElementById(child.id);
+                            dataForm = { ...dataForm, [child.id]: childrenNode.value }
+                        })
+                    }
                     if (option.hasChildren && inputField.value == option.hasChildren.parentOf) {
                         const childrenNode = document.getElementById(option.hasChildren.id);
                         dataForm = { ...dataForm, [option.hasChildren.id]: childrenNode.value }
@@ -397,8 +403,8 @@ function validateForm() {
                 })
             }
         }
-        if (elementForm.typeInput === 'textField')
-            if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
+        if (elementForm.typeInput === 'textField') return TextField(elementForm)
+        if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
         if (elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
         if (elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
     })

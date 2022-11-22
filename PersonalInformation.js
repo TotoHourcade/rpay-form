@@ -56,7 +56,7 @@ const PersonalInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: true,
-        errorMessage: "Enter your full 'last name'",
+        errorMessage: "Ingrese su apellido",
         col: 4
     },
     {
