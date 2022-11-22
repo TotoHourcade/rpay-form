@@ -7,10 +7,10 @@ function selectValueDropdown(event) {
     const idElementSelected = event.target.getAttribute('id');
     const currentItem = PersonalInformationForm.find(element => element.id === idElementSelected);
 
-    if(!currentItem) return;
+    if (!currentItem) return;
     const optionSelected = currentItem.options.find(element => element.value == valueSelected);
     console.log(document.getElementById(currentItem.id + '-form').childNodes.length);
-    if(document.getElementById(currentItem.id + '-form').childNodes.length > 7){
+    if (document.getElementById(currentItem.id + '-form').childNodes.length > 7) {
         const numberItemsShouldRemove = document.getElementById(currentItem.id + '-form').childNodes.length - 7;
         Array(numberItemsShouldRemove).fill().forEach(() => {
             document.getElementById(currentItem.id + '-form').removeChild(document.getElementById(currentItem.id + '-form').lastChild);
@@ -31,8 +31,8 @@ function selectValueDropdown(event) {
     }
 }
 
-const Button = ({ label, buttonLabel, id, onPress, icon}) => {
-    return(
+const Button = ({ label, buttonLabel, id, onPress, icon }) => {
+    return (
         `
             <div class="col-span-12 sm:col-span-12 id="${id}-form">
                 <label class="block text-sm font-medium text-gray-700">${label}</label>
@@ -47,7 +47,7 @@ const Button = ({ label, buttonLabel, id, onPress, icon}) => {
 
 const DropDownField = ({ label, id, errorId, options, children = false }) => {
     return (
-        `<div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : '' }" id="${id}-form">
+        `<div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}" id="${id}-form">
         <label for="first-name" class="block text-sm font-medium text-gray-700">${label}</label>
         <select name="" id="${id}"
         onchange="selectValueDropdown(event)"
@@ -61,7 +61,7 @@ const DropDownField = ({ label, id, errorId, options, children = false }) => {
 
 const UploadFileField = ({ label, errorId, id, children = false }) => {
     return (`
-    <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : '' }"">
+    <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}"">
                                 <label class="block text-sm font-medium text-gray-700">${label}</label>
                                 <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
                                     onclick="openDynamicInputUpload(${id})">
@@ -295,7 +295,7 @@ function validateDropdown(inputField, elementForm) {
         document.getElementById(elementForm.errorId).innerHTML = 'Select an option'
         formData.hasErrors = true;
         return;
-    }else{
+    } else {
         document.getElementById(elementForm.errorId).innerHTML = ''
     }
     if (elementForm.options.length > 0) {
@@ -306,7 +306,7 @@ function validateDropdown(inputField, elementForm) {
                 if (childrenNode.type == 'text' || childrenNode.type == 'number') {
                     validateTextField(childrenNode, option.hasChildren);
                 }
-                if( typeChildren == 'Dropdown') validateDropdown(childrenNode, option.hasChildren);    
+                if (typeChildren == 'Dropdown') validateDropdown(childrenNode, option.hasChildren);
             }
         })
     }
@@ -314,14 +314,14 @@ function validateDropdown(inputField, elementForm) {
 
 function validateTextField(inputField, elementForm) {
     if (inputField.value === '' && elementForm.isRequired) {
-        if(elementForm.errorMessage){
+        if (elementForm.errorMessage) {
             document.getElementById(elementForm.errorId).innerHTML = elementForm.errorMessage
         } else {
             document.getElementById(elementForm.errorId).innerHTML = 'Fill the field'
         }
         formData.hasErrors = true;
         return;
-    }else{
+    } else {
         document.getElementById(elementForm.errorId).innerHTML = ''
     }
     if (!elementForm.validationRegex) return;
@@ -365,19 +365,19 @@ function validateForm() {
         console.log(dataForm)
         const inputField = document.getElementById(elementForm.id);
 
-        dataForm = {...dataForm, [elementForm.id]: inputField.value}
-        if(elementForm.typeInput === 'Dropdown'){
+        dataForm = { ...dataForm, [elementForm.id]: inputField.value }
+        if (elementForm.typeInput === 'Dropdown') {
             if (elementForm.options.length > 0) {
                 elementForm.options.forEach((option) => {
                     if (option.hasChildren && inputField.value == option.hasChildren.parentOf) {
                         const childrenNode = document.getElementById(option.hasChildren.id);
-                        dataForm = {...dataForm, [option.hasChildren.id]: childrenNode.value}
+                        dataForm = { ...dataForm, [option.hasChildren.id]: childrenNode.value }
                     }
                 })
             }
         }
         if (elementForm.typeInput === 'textField')
-        if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
+            if (elementForm.typeInput === 'DatePicker') return DataPickerField(elementForm)
         if (elementForm.typeInput === 'Dropdown') return DropDownField(elementForm)
         if (elementForm.typeInput === 'FileUpload') return UploadFileField(elementForm)
     })
@@ -403,37 +403,38 @@ const getShareholdersForm = (shareholder) => {
         minLength: 2,
         isRequired: true,
     },
-    {
-        id: 'shareholder_email',
-        label: 'Shareholder Email',
-        errorId: 'shareholder_email_error',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [{
-            validation: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
-            errorText: 'Please enter a valid email'
-    }],
-        maxLength: 200,
-        minLength: 2,
-        isRequired: true,
-    }).map((element) => {
-        element.id = element.id + `_shareholder_${shareholder}`
-        element.errorId = element.errorId + `_shareholder_${shareholder}`
-        if (element.typeInput === 'Dropdown') {
-            element.options.map((option) => {
-                if (option.hasChildren) {
-                    option.hasChildren.id = option.hasChildren.id + `_shareholder_${shareholder}`
-                    option.hasChildren.errorId = option.hasChildren.errorId + `_shareholder_${shareholder}`
-                }
-            })
-        }
-        return element
-    })
+        {
+            id: 'shareholder_email',
+            label: 'Shareholder Email',
+            errorId: 'shareholder_email_error',
+            placeholder: '',
+            typeInput: 'textField',
+            validationRegex: [{
+                validation: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/,
+                errorText: 'Please enter a valid email'
+            }],
+            maxLength: 200,
+            minLength: 2,
+            isRequired: true,
+        }).map((element) => {
+            element.shareholderIndex = shareholder
+            element.id = element.id + `_shareholder_${shareholder}`
+            element.errorId = element.errorId + `_shareholder_${shareholder}`
+            if (element.typeInput === 'Dropdown') {
+                element.options.map((option) => {
+                    if (option.hasChildren) {
+                        option.hasChildren.id = option.hasChildren.id + `_shareholder_${shareholder}`
+                        option.hasChildren.errorId = option.hasChildren.errorId + `_shareholder_${shareholder}`
+                    }
+                })
+            }
+            return element
+        })
 }
 
 const addShareholder = () => {
     if (shareholdersList.length == 4) return
-
+    console.log(shareholdersList)
     const shareholders = shareholdersList.length + 1;
     const ShareholdersForm = getShareholdersForm(shareholders);
     shareholdersList = shareholdersList.concat([ShareholdersForm])
@@ -446,22 +447,64 @@ const addShareholder = () => {
             <div class="bg-white px-4 py-5 sm:p-6 grid grid-cols-12 gap-2" id="shareholder${shareholders}_form">
             <div class="col-span-12 inline-flex">
                 <h2 class="text-2xl mr-4">Shareholder ${shareholders}</h2>
-                <button class="text-center inline-flex items-center px-2 py-2 bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-full shadow-s rounded-full" onclick="removeShareholder(${shareholders})">
-                    <svg fill="#FFFFFF" viewBox="0 0 50 50" width="20px" height="20px"><path d="M 21 2 C 19.354545 2 18 3.3545455 18 5 L 18 7 L 8 7 A 1.0001 1.0001 0 1 0 8 9 L 9 9 L 9 45 C 9 46.654 10.346 48 12 48 L 38 48 C 39.654 48 41 46.654 41 45 L 41 9 L 42 9 A 1.0001 1.0001 0 1 0 42 7 L 32 7 L 32 5 C 32 3.3545455 30.645455 2 29 2 L 21 2 z M 21 4 L 29 4 C 29.554545 4 30 4.4454545 30 5 L 30 7 L 20 7 L 20 5 C 20 4.4454545 20.445455 4 21 4 z M 19 14 C 19.552 14 20 14.448 20 15 L 20 40 C 20 40.553 19.552 41 19 41 C 18.448 41 18 40.553 18 40 L 18 15 C 18 14.448 18.448 14 19 14 z M 25 14 C 25.552 14 26 14.448 26 15 L 26 40 C 26 40.553 25.552 41 25 41 C 24.448 41 24 40.553 24 40 L 24 15 C 24 14.448 24.448 14 25 14 z M 31 14 C 31.553 14 32 14.448 32 15 L 32 40 C 32 40.553 31.553 41 31 41 C 30.447 41 30 40.553 30 40 L 30 15 C 30 14.448 30.447 14 31 14 z"/></svg>
+                <button onclick="removeShareholder(event)" data-shareholder=${shareholders} id="button_shareholder_${shareholders}" class="text-center inline-flex items-center px-2 py-2 bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-full shadow-s rounded-full text-white" >
+                  Quitar
                 </button>
             </div>
                 <hr class="col-span-12">
                 ${dynamicForm.toString().replaceAll(',', ' ').replaceAll('account owner', 'shareholder')}
             </div>
         </div>`
-        
+
     document.getElementById('shareholders').appendChild(div)
 
 }
 
-const removeShareholder = (shareholder) => {
-    shareholdersList = shareholdersList.filter((element, index) => index !== shareholder - 1)
-    console.log(shareholdersList)
-    document.getElementById(`shareholder${shareholder}_div`).remove()
+const removeShareholder = (event) => { // This will need refactoring
+    const indiceToRemove = Number(event.target.getAttribute('data-shareholder'));
+
+    shareholdersList = shareholdersList.map((shareholder) => {
+        if (shareholder[0].shareholderIndex === indiceToRemove) {
+            return;
+        } else {
+            return shareholder
+        }
+    });
+    shareholdersList = shareholdersList.filter(e => e)
+
+    // This loop is for the form container
+    shareholdersList = shareholdersList.map((shareholder, index) => {
+        const indexShareHolder = index + 1;
+        const oldIndex = shareholder[0].shareholderIndex;
+
+
+        // This loop is for the items inside of the form
+        shareholder = shareholder.map((element) => {
+            // console.log(indexShareHolder)
+            const newID = element.id.substring(0, element.id.length - 1) + indexShareHolder;
+            const newErrorID = element.errorId.substring(0, element.errorId.length - 1) + indexShareHolder;
+            //Actualizar cada campo con su id en DOM
+            document.getElementById(element.id).id = newID;
+            document.getElementById(element.errorId).id = newErrorID;
+
+
+            return {
+                ...element,
+                id: newID,
+                errorId: newErrorID,
+                shareholderIndex: indexShareHolder
+            }
+        })
+
+        // New index
+        document.getElementById(`button_shareholder_${oldIndex}`).setAttribute('data-shareholder', indexShareHolder);
+        document.getElementById(`button_shareholder_${oldIndex}`).id = `button_shareholder_${indexShareHolder}`
+        document.getElementById(`shareholder${oldIndex}_div`).id = `shareholder${indexShareHolder}_div`
+        document.getElementById(`shareholder${oldIndex}_form`).querySelector('h2').innerHTML = `Shareholder ${indexShareHolder}`;
+        document.getElementById(`shareholder${oldIndex}_form`).id = `shareholder${indexShareHolder}_form`
+        return shareholder
+
+    });
+    document.getElementById(`shareholder${indiceToRemove}_div`).remove()
 }
 
