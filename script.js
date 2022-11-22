@@ -9,7 +9,6 @@ function selectValueDropdown(event) {
 
     if (!currentItem) return;
     const optionSelected = currentItem.options.find(element => element.value == valueSelected);
-    console.log(document.getElementById(currentItem.id + '-form').childNodes.length);
     if (document.getElementById(currentItem.id + '-form').childNodes.length > 7) {
         const numberItemsShouldRemove = document.getElementById(currentItem.id + '-form').childNodes.length - 7;
         Array(numberItemsShouldRemove).fill().forEach(() => {
@@ -18,14 +17,32 @@ function selectValueDropdown(event) {
     }
 
     if (optionSelected.hasChildren) {
-        if (optionSelected.hasChildren.typeInput === 'textField') {
-            document.getElementById(`${idElementSelected}-form`).innerHTML += TextField({ ...optionSelected.hasChildren, children: true });
-        }
-        if (optionSelected.hasChildren.typeInput === 'Dropdown') {
-            document.getElementById(`${idElementSelected}-form`).innerHTML += DropDownField({ ...optionSelected.hasChildren, children: true });
-        }
-        if (optionSelected.hasChildren.typeInput === 'FileUpload') {
-            document.getElementById(`${idElementSelected}-form`).innerHTML += UploadFileField({ ...optionSelected.hasChildren, children: true });
+        if(Array.isArray(optionSelected.hasChildren)){
+            optionSelected.hasChildren.forEach((children) => {
+                if (children.typeInput === 'textField') {
+                    document.getElementById(`${idElementSelected}-form`).innerHTML += TextField({ ...children, children: true });
+                }
+                if (children.typeInput === 'Dropdown') {
+                    document.getElementById(`${idElementSelected}-form`).innerHTML += DropDownField({ ...children, children: true });
+                }
+                if (children.typeInput === 'FileUpload') {
+                    document.getElementById(`${idElementSelected}-form`).innerHTML += UploadFileField({ ...children, children: true });
+                }
+                if (children.typeInput === 'DatePicker') {
+                    document.getElementById(`${idElementSelected}-form`).innerHTML += DataPickerField({ ...children, children: true })
+                }
+
+            });
+        }else{
+            if (optionSelected.hasChildren.typeInput === 'textField') {
+                document.getElementById(`${idElementSelected}-form`).innerHTML += TextField({ ...optionSelected.hasChildren, children: true });
+            }
+            if (optionSelected.hasChildren.typeInput === 'Dropdown') {
+                document.getElementById(`${idElementSelected}-form`).innerHTML += DropDownField({ ...optionSelected.hasChildren, children: true });
+            }
+            if (optionSelected.hasChildren.typeInput === 'FileUpload') {
+                document.getElementById(`${idElementSelected}-form`).innerHTML += UploadFileField({ ...optionSelected.hasChildren, children: true });
+            }
         }
         document.getElementById(`${idElementSelected}`).value = valueSelected;
     }
@@ -45,7 +62,7 @@ const Button = ({ label, buttonLabel, id, onPress, icon }) => {
     )
 }
 
-const DropDownField = ({ label, id, errorId, options, children = false, titleOfSection }) => {
+const DropDownField = ({ label, id, errorId, options, children = false, titleOfSection, endSection }) => {
     return (
         ` ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
         <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}" id="${id}-form">
@@ -56,7 +73,8 @@ const DropDownField = ({ label, id, errorId, options, children = false, titleOfS
             ${options.map((option) => `<option value="${option.value}">${option.label || option.value}</option>`)}
         </select>
         <p class="text-xs text-dark mt-1 error-input-text" id="${errorId}"></p>
-    </div>`
+    </div>
+    ${endSection ? '<hr style="margin-top:50px">' : ''}`
     )
 }
 
@@ -94,7 +112,7 @@ const UploadFileField = ({ label, errorId, id, children = false }) => {
 const DataPickerField = ({ label, placeholder, errorId, id }) => {
     return (
         `
-        <div class="col-span-12 sm:col-span-12">
+        <div class="col-span-12 sm:col-span-12 mt-3">
         <label class="block text-sm font-medium text-gray-700 mb-1">${label}</label>
         <div class="relative ">
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -108,7 +126,7 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
     )
 }
 
-const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false, titleOfSection }) => {
+const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false, titleOfSection, endSection}) => {
     if (children) console.log("childnreeeen")
     return (
         `
@@ -120,8 +138,9 @@ const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             ${isRequired ? '' : `<span class="text-xs text-dark mt-1 " id="${id}-info" style='color:gray'>* Opcional</span>`}
             <p class="text-xs text-dark mt-1 error-input-text" id="${errorId}"></p>
-        
-    </div>`
+    ${endSection ? '<hr style="margin-top:50px">' : ''}
+    </div>
+    `
     )
 }
 
