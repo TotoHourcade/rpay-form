@@ -1,5 +1,6 @@
 const PersonalInformationForm = [
     {
+        titleOfSection: 'Informacion Personal',
         id: 'first_name',
         label: 'Please enter the first name of the account owner',
         errorId: 'first_name_error',
@@ -190,9 +191,10 @@ const PersonalInformationForm = [
         isRequired: true,
     },
     {
+        titleOfSection: 'Dirección',
         id: 'country_selection',
         hasChildren: 'state_related_selection',
-        label: 'Country',
+        label: 'Please enter the country of residence of the account owner',
         options: [
             {hasChildren: false, label:'Select country', value: 0},
             {hasChildren: {
@@ -393,31 +395,7 @@ const PersonalInformationForm = [
         isRequired: false,
     },
     {
-        id: 'document_type',
-        label: 'Please select the account owner document type that shows proof of address. The document must be at least 90 days old',
-        options: [
-            {hasChildren: false, label:'Document type', value: 0},
-            {hasChildren: false, value: 'Utility bill'},
-            {hasChildren: false, value: 'Drivers License w/Address'},
-            {hasChildren: false, value: 'Tax document'},
-            {hasChildren: false, value: 'Gov ID w/ Address'},
-            {hasChildren: false, value: 'Rental Lease agreement'},
-        ],
-        errorId: 'document_type_error',
-        placeholder: '',
-        typeInput: 'Dropdown',
-        isRequired: true,
-    },
-    {
-        id: 'validate_address_photo',
-        label: 'Please upload the document showing proof of address. Scanned, blurry, unlear images will not be accepted.',
-        errorId: 'validate_address_photo_error',
-        placeholder: '',
-        typeInput: 'FileUpload',
-        fileUploaded: null,
-        isRequired: true,
-    },
-    {
+        titleOfSection:'Documentos',
         id: 'type_id',
         label: 'Please enter the account owner ID type',
         options: [
@@ -460,6 +438,14 @@ const PersonalInformationForm = [
         isRequired: true,
     },
     {
+        id: 'expiration_id',
+        label: 'Please enter the expiration date of the document',
+        errorId: 'expiration_id_error',
+        placeholder: 'mm/dd/yyyy',
+        typeInput: 'DatePicker',
+        isRequired: true,
+    },
+    {
         id: 'validate_id_photo_2',
         label: 'Please Upload the front of the document. Scanned, blurry, unlear images will not be accepted.',
         errorId: 'validate_id_photo_error_2',
@@ -469,26 +455,30 @@ const PersonalInformationForm = [
         isRequired: true,
     },
     {
-        id: 'country_residence',
-        label: 'Please enter the country of residence of the account owner',
+        id: 'document_type',
+        label: 'Please select the account owner document type that shows proof of address. The document must be at least 90 days old',
         options: [
-            {hasChildren: false, label:'Select country', value: 0},
-            {hasChildren: false, label:'United States', value: 'United States'},
-            {hasChildren: false, label:'Venezuela', value: 'Venezuela'},
-            {hasChildren: false, label:'Colombia', value: 'Colombia'},
-            {hasChildren: false, label:'Argentina', value: 'Argentina'},
+            {hasChildren: false, label:'Document type', value: 0},
+            {hasChildren: false, value: 'Utility bill'},
+            {hasChildren: false, value: 'Drivers License w/Address'},
+            {hasChildren: false, value: 'Tax document'},
+            {hasChildren: false, value: 'Gov ID w/ Address'},
+            {hasChildren: false, value: 'Rental Lease agreement'},
         ],
-        errorId: 'country_residence_error',
+        errorId: 'document_type_error',
         placeholder: '',
         typeInput: 'Dropdown',
         isRequired: true,
     },
     {
-        id: 'expiration_id',
-        label: 'Please enter the expiration date of the document',
-        errorId: 'expiration_id_error',
-        placeholder: 'mm/dd/yyyy',
-        typeInput: 'DatePicker',
+        id: 'validate_address_photo',
+        label: 'Please upload the document showing proof of address. Scanned, blurry, unlear images will not be accepted.',
+        errorId: 'validate_address_photo_error',
+        placeholder: '',
+        typeInput: 'FileUpload',
+        fileUploaded: null,
         isRequired: true,
     },
+    
+    
 ]

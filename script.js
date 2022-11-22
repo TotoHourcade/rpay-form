@@ -45,9 +45,10 @@ const Button = ({ label, buttonLabel, id, onPress, icon }) => {
     )
 }
 
-const DropDownField = ({ label, id, errorId, options, children = false }) => {
+const DropDownField = ({ label, id, errorId, options, children = false, titleOfSection }) => {
     return (
-        `<div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}" id="${id}-form">
+        ` ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
+        <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}" id="${id}-form">
         <label for="first-name" class="block text-sm font-medium text-gray-700">${label}</label>
         <select name="" id="${id}"
         onchange="selectValueDropdown(event)"
@@ -107,10 +108,12 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
     )
 }
 
-const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false }) => {
+const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false, titleOfSection }) => {
     if (children) console.log("childnreeeen")
     return (
-        `<div class="col-span-12 sm:col-span-${col} ${children ? 'pt-2' : ''}" id="${id}-form">
+        `
+        ${titleOfSection ? `<div class='col-span-12 mt-5'><h2>${titleOfSection}</h2></div>` : ''}
+        <div class="col-span-12 sm:col-span-${col} ${children ? 'pt-2' : ''}" id="${id}-form">
         <label for="${id}" class="block text-sm font-medium text-gray-700">${label}</label>
         <input type="${type}" maxlength=${maxLength} minlength=${minLength} name="${id}" id="${id}" 
         placeholder="${placeholder}" autocomplete="given-name"
