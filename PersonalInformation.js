@@ -2,7 +2,7 @@ const PersonalInformationForm = [
     {
         titleOfSection: 'Información Personal',
         id: 'first_name',
-        label: 'Ingrese el primer nombre del dueño de la cuenta',
+        label: 'Primer nombre del titular de la cuenta',
         errorId: 'first_name_error',
         placeholder: 'Primer nombre',
         typeInput: 'textField',
@@ -25,7 +25,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'middle_name',
-        label: 'Ingrese el segundo nombre del dueño de la cuenta',
+        label: 'Segundo nombre del titular de la cuenta',
         errorId: 'middle_name_error',
         placeholder: 'Segundo nombre',
         typeInput: 'textField',
@@ -38,7 +38,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'last_name',
-        label: 'Ingrese el apellido del dueño de la cuenta',
+        label: 'Apellido del titular de la cuenta',
         errorId: 'last_name_error',
         placeholder: 'Last name',
         typeInput: 'textField',
