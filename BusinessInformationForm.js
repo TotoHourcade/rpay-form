@@ -5,11 +5,9 @@ const BusinessInformationForm = [
         options: [
             {hasChildren: false, value: 'Company'},
             {hasChildren: false, value: 'LLC'},
-            {hasChildren: false, value: 'Colombia'},
-            {hasChildren: false, value: 'Corporation'},
-            {hasChildren: false, value: 'S-Corp'},
+            {hasChildren: false, value: 'C Corp'},
+            {hasChildren: false, value: 'S Crop'},
             {hasChildren: false, value: 'Trust'},
-
         ],
         errorId: 'type_entity_error_id',
         placeholder: '',
