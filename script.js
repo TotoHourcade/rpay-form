@@ -96,7 +96,7 @@ const UploadFileField = ({ label, errorId, id, children = false }) => {
                                         <div class="flex text-sm text-gray-600">
                                             <label for="file-upload"
                                                 class="relative cursor-pointer mx-auto rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
-                                                <span id="text-file-${id}">Upload file</span>
+                                                <span id="text-file-${id}">Subir archivo</span>
                                                 <input id="${id}" onchange="fileInputChangeValue(${id})"
                                                     name="file-upload" type="file" class="sr-only" >
                                             </label>

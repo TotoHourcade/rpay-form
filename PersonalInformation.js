@@ -61,7 +61,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'date_birthday',
-        label: 'Ingrese la fecha de nacimiento del dueño de la cuenta. Respetando el siguiente formato Mes, Dia, Año.',
+        label: 'Ingrese la fecha de nacimiento del dueño de la cuenta. Respetando el siguiente formato Mes, Dia, Año',
         errorId: 'date_birthday_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',
@@ -71,7 +71,7 @@ const PersonalInformationForm = [
         id: 'tax_country',
         label: 'País de residencia/domicilio del titular de la cuenta bancaria ',
         options: [
-            { hasChildren: false, label: 'Select country', value: 0 },
+            { hasChildren: false, label: 'Seleccione país', value: 0 },
             {
                 hasChildren: {
                     id: 'tax_id',
@@ -195,7 +195,7 @@ const PersonalInformationForm = [
         titleOfSection: 'Dirección',
         id: 'country_selection',
         hasChildren: 'state_related_selection',
-        label: 'País de residencia/domicilio del titular de la cuenta bancaria:',
+        label: 'País de residencia/domicilio del titular de la cuenta bancaria',
         options: [
             { hasChildren: false, label: 'Elegir país', value: 0 },
             {
@@ -375,7 +375,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'street_1',
-        label: 'Dirección de avenida o calle del titular de la cuenta bancaria:',
+        label: 'Dirección de avenida o calle del titular de la cuenta bancaria',
         errorId: 'street_1_error',
         placeholder: '',
         typeInput: 'textField',
