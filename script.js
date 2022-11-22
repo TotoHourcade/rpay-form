@@ -410,7 +410,6 @@ function validateForm() {
 let shareholdersList = [];
 
 const getShareholdersForm = (shareholder) => {
-
     //We do it this way so the original array does not get passed by reference
     let ShareholdersForm = JSON.parse(JSON.stringify(PersonalInformationForm));
 

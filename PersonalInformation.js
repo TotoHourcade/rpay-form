@@ -1,19 +1,19 @@
 const PersonalInformationForm = [
     {
-        titleOfSection: 'Informacion Personal',
+        titleOfSection: 'Información Personal',
         id: 'first_name',
-        label: 'Please enter the first name of the account owner',
+        label: 'Ingrese el primer nombre del dueño de la cuenta',
         errorId: 'first_name_error',
-        placeholder: 'First name',
+        placeholder: 'Primer nombre',
         typeInput: 'textField',
         validationRegex: [
             {
                 validation: /^(?!.*([A-Za-zñÑáéíóúÁÉÍÓÚ\s])\1{2}).+$/,
-                errorText: 'Enter a valid name'
+                errorText: 'Ingrese un nombre válido'
             },
             {
                 validation: /^[A-Za-z][A-Za-z]*$/,
-                errorText: 'Enter your name as it appear in your ID'
+                errorText: 'Ingrese el nombre tal como aparece en su ID'
             }
 
         ],
@@ -25,9 +25,9 @@ const PersonalInformationForm = [
     },
     {
         id: 'middle_name',
-        label: 'Please enter the middle name of the account owner',
+        label: 'Ingrese el segundo nombre del dueño de la cuenta',
         errorId: 'middle_name_error',
-        placeholder: 'Middle name',
+        placeholder: 'Segundo nombre',
         typeInput: 'textField',
         validationRegex: [],
         maxLength: 200,
@@ -38,7 +38,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'last_name',
-        label: 'Please enter the Last name of the account owner',
+        label: 'Ingrese el apellido del dueño de la cuenta',
         errorId: 'last_name_error',
         placeholder: 'Last name',
         typeInput: 'textField',
@@ -61,7 +61,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'date_birthday',
-        label: 'Please enter the account owner date of birth. In the format Month, Day, Year.',
+        label: 'Ingrese la fecha de nacimiento del dueño de la cuenta. Respetando el siguiente formato Mes, Dia, Año.',
         errorId: 'date_birthday_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',
@@ -69,7 +69,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'tax_country',
-        label: 'Please enter the account owner Tax Country',
+        label: 'País de residencia/domicilio del titular de la cuenta bancaria ',
         options: [
             { hasChildren: false, label: 'Select country', value: 0 },
             {
@@ -177,9 +177,9 @@ const PersonalInformationForm = [
     {
         id: 'phone_number',
         endSection: true,
-        label: 'Please enter the account owners number including country code',
+        label: 'Número de teléfono del titular de la cuenta bancaria',
         errorId: 'phone_number_error',
-        placeholder: 'Phone number',
+        placeholder: 'Número telefónico personal, con código de área y país.',
         typeInput: 'textField',
         validationRegex: [
             {
@@ -195,15 +195,15 @@ const PersonalInformationForm = [
         titleOfSection: 'Dirección',
         id: 'country_selection',
         hasChildren: 'state_related_selection',
-        label: 'Please enter the country of residence of the account owner',
+        label: 'País de residencia/domicilio del titular de la cuenta bancaria:',
         options: [
-            { hasChildren: false, label: 'Select country', value: 0 },
+            { hasChildren: false, label: 'Elegir país', value: 0 },
             {
                 hasChildren: {
                     id: 'state_related_selection',
-                    label: 'State',
+                    label: 'Estado',
                     options: [
-                        { hasChildren: false, label: 'Select State', value: 0 },
+                        { hasChildren: false, label: 'Elegir estado', value: 0 },
                         { hasChildren: false, label: 'Alabama', value: 'AL' },
                         { hasChildren: false, label: 'Alaska', value: 'AK' },
                         { hasChildren: false, label: 'Arizona', value: 'AZ' },
@@ -266,7 +266,7 @@ const PersonalInformationForm = [
                 hasChildren:
                 {
                     id: 'state_related_selection',
-                    label: 'State',
+                    label: 'Estado',
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -286,7 +286,7 @@ const PersonalInformationForm = [
                 hasChildren:
                 {
                     id: 'state_related_selection',
-                    label: 'State',
+                    label: 'Estado',
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -306,7 +306,7 @@ const PersonalInformationForm = [
                 hasChildren:
                 {
                     id: 'state_related_selection',
-                    label: 'State',
+                    label: 'Estado',
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -326,7 +326,7 @@ const PersonalInformationForm = [
                 hasChildren:
                 {
                     id: 'state_related_selection',
-                    label: 'State',
+                    label: 'Estado',
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -350,7 +350,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'city_related',
-        label: 'City',
+        label: 'Ciudad',
         errorId: 'city_related_error',
         placeholder: '',
         typeInput: 'textField',
@@ -364,7 +364,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'postal_code',
-        label: 'Postal Code',
+        label: 'Codigo postal',
         errorId: 'postal_code_error',
         placeholder: '',
         typeInput: 'textField',
@@ -375,7 +375,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'street_1',
-        label: 'Please enter the account owner Street Address 1',
+        label: 'Dirección de avenida o calle del titular de la cuenta bancaria:',
         errorId: 'street_1_error',
         placeholder: '',
         typeInput: 'textField',
@@ -390,7 +390,7 @@ const PersonalInformationForm = [
     {
         id: 'street_2',
         endSection: true,
-        label: 'Street 2',
+        label: 'Dirección 2',
         errorId: 'street_2_error',
         placeholder: '',
         typeInput: 'textField',
@@ -405,108 +405,114 @@ const PersonalInformationForm = [
     {
         titleOfSection: 'Documentos',
         id: 'type_id',
-        label: 'Please enter the account owner ID type',
+        label: 'Tipo de documento de Identidad',
         options: [
-            { hasChildren: false, label: 'Select type ID', value: 0 },
+            { hasChildren: false, label: 'Seleccione el tipo de ID', value: 0 },
             {
                 hasChildren: [
                     {
                         id: 'expiration_id',
-                        label: 'Please enter the expiration date of the document',
+                        label: 'Ingrese la fecha de expiración de su ID',
                         errorId: 'expiration_id_error',
                         placeholder: 'mm/dd/yyyy',
                         typeInput: 'DatePicker',
                         isRequired: true,
+                        parentOf: 'Licencia de conducción'
                     },
                     {
                         id: 'validate_id_photo_2',
-                        label: 'Please Upload the front of the document. Scanned, blurry, unlear images will not be accepted.',
+                        label: 'Fotografía del frente del documento de identidad vigente del titular de la cuenta bancaria',
                         errorId: 'validate_id_photo_error_2',
                         placeholder: '',
                         typeInput: 'FileUpload',
                         fileUploaded: null,
                         isRequired: true,
+                        parentOf: 'Licencia de conducción'
                     },
                     {
                         id: 'validate_id_photo',
-                        label: 'Please Upload the back of the drivers license. Scanned, blurry, unlear images will not be accepted.',
+                        label: 'Fotografía del reverso del documento de identidad vigente del titular de la cuenta bancaria',
                         errorId: 'validate_id_photo_error',
                         placeholder: '',
                         typeInput: 'FileUpload',
                         fileUploaded: null,
                         isRequired: true,
-                        parentOf: 'Drivers license'
+                        parentOf: 'Licencia de conducción'
                     },
-                ], value: 'Drivers license'
+                ], value: 'Licencia de conducción'
             },
             {
                 hasChildren: [{
                     id: 'expiration_id',
-                    label: 'Please enter the expiration date of the document',
+                    label: 'Ingrese la fecha de expiración de su ID',
                     errorId: 'expiration_id_error',
                     placeholder: 'mm/dd/yyyy',
                     typeInput: 'DatePicker',
                     isRequired: true,
+                    parentOf: 'ID'
                 }, {
                     id: 'validate_id_photo',
-                    label: 'Please Upload the front of the goverment ID. Scanned, blurry, unlear images will not be accepted.',
+                    label: 'Fotografía del frente del documento de identidad vigente del titular de la cuenta bancaria',
                     errorId: 'validate_id_photo_error',
                     placeholder: '',
                     typeInput: 'FileUpload',
                     fileUploaded: null,
                     isRequired: true,
-                    parentOf: 'Gov ID'
+                    parentOf: 'ID'
                 },
                 {
                     id: 'validate_id_photo',
-                    label: 'Please Upload the back of the goverment ID. Scanned, blurry, unlear images will not be accepted.',
+                    label: 'Fotografía del reverso del documento de identidad vigente del titular de la cuenta bancaria',
                     errorId: 'validate_id_photo_error',
                     placeholder: '',
                     typeInput: 'FileUpload',
                     fileUploaded: null,
                     isRequired: true,
-                    parentOf: 'Drivers license'
-                },], value: 'Gov ID'
+                    parentOf: 'ID'
+                },], value: 'ID'
             },
             {
                 hasChildren: [
                     {
                         id: 'expiration_id',
-                        label: 'Please enter the expiration date of the document',
+                        label: 'Ingrese la fecha de expiración de su ID',
                         errorId: 'expiration_id_error',
                         placeholder: 'mm/dd/yyyy',
                         typeInput: 'DatePicker',
                         isRequired: true,
+                        parentOf: 'Pasaporte'
                     },
                     {
                         id: 'validate_id_photo_2',
-                        label: 'Please Upload the front of the document. Scanned, blurry, unlear images will not be accepted.',
+                        label: 'Fotografía del frente del documento de identidad vigente del titular de la cuenta bancaria.',
                         errorId: 'validate_id_photo_error_2',
                         placeholder: '',
                         typeInput: 'FileUpload',
                         fileUploaded: null,
                         isRequired: true,
+                        parentOf: 'Pasaporte'
                     },
-                ], value: 'Passport'
+                ], value: 'Pasaporte'
             },
             {
                 hasChildren: [{
                     id: 'expiration_id',
-                    label: 'Please enter the expiration date of the document',
+                    label: 'Ingrese la fecha de expiración de su ID',
                     errorId: 'expiration_id_error',
                     placeholder: 'mm/dd/yyyy',
                     typeInput: 'DatePicker',
                     isRequired: true,
+                    parentOf:'Permiso de residencia'
                 }, {
                     id: 'validate_id_photo',
-                    label: 'Please Upload the front of the residence permit. Scanned, blurry, unlear images will not be accepted.',
+                    label: 'Fotografía del frente del documento de identidad vigente del titular de la cuenta bancaria',
                     errorId: 'validate_id_photo_error',
                     placeholder: '',
                     typeInput: 'FileUpload',
                     fileUploaded: null,
                     isRequired: true,
-                    parentOf: 'Residence Permit'
-                }], value: 'Residence Permit'
+                    parentOf: 'Permiso de residencia'
+                }], value: 'Permiso de residencia'
             },
         ],
         errorId: 'type_id_error',
@@ -514,17 +520,16 @@ const PersonalInformationForm = [
         typeInput: 'Dropdown',
         isRequired: true,
     },
-    ,
     {
         id: 'document_type',
-        label: 'Please select the account owner document type that shows proof of address. The document must be at least 90 days old',
+        label: 'Seleccione un documento que pruebe la dirección del titular de la cuenta. El documento debe tener minimo 90 días',
         options: [
-            { hasChildren: false, label: 'Document type', value: 0 },
-            { hasChildren: false, value: 'Utility bill' },
-            { hasChildren: false, value: 'Drivers License w/Address' },
-            { hasChildren: false, value: 'Tax document' },
-            { hasChildren: false, value: 'Gov ID w/ Address' },
-            { hasChildren: false, value: 'Rental Lease agreement' },
+            { hasChildren: false, label: 'Tipo de documento', value: 0 },
+            { hasChildren: false, value: 'Factura de servicios públicos' },
+            { hasChildren: false, value: 'Licencia de conducir con dirección' },
+            { hasChildren: false, value: 'Documento fiscal' },
+            { hasChildren: false, value: 'ID con dirección' },
+            { hasChildren: false, value: 'Contrato de arrendamiento' },
         ],
         errorId: 'document_type_error',
         placeholder: '',
@@ -533,7 +538,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'validate_address_photo',
-        label: 'Please upload the document showing proof of address. Scanned, blurry, unlear images will not be accepted.',
+        label: '',
         errorId: 'validate_address_photo_error',
         placeholder: '',
         typeInput: 'FileUpload',
