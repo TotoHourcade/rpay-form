@@ -54,7 +54,6 @@ const Button = ({ label, buttonLabel, id, onPress, icon }) => {
             <div class="col-span-12 sm:col-span-12 id="${id}-form">
                 <label class="block text-sm font-medium text-gray-700">${label}</label>
             </div>
-          
             <div class="col-span-3">
                 <button class="text-center inline-flex items-center px-4 py-2 bg-cyan-500 text-white rounded-full shadow-s rounded-full" onclick="${onPress}">${buttonLabel}${icon}</button>
             </div>
@@ -314,7 +313,7 @@ function validateDate(inputField, elementForm) {
 
 function validateDropdown(inputField, elementForm) {
     if (inputField.value == 0 && elementForm.isRequired) {
-        document.getElementById(elementForm.errorId).innerHTML = 'Select an option'
+        document.getElementById(elementForm.errorId).innerHTML = 'Seleccione una opción'
         formData.hasErrors = true;
         return;
     } else {
@@ -339,7 +338,7 @@ function validateTextField(inputField, elementForm) {
         if (elementForm.errorMessage) {
             document.getElementById(elementForm.errorId).innerHTML = elementForm.errorMessage
         } else {
-            document.getElementById(elementForm.errorId).innerHTML = 'Fill the field'
+            document.getElementById(elementForm.errorId).innerHTML = 'Complete el campo'
         }
         formData.hasErrors = true;
         return;
@@ -375,7 +374,7 @@ function validateForm() {
             if (elementForm.typeInput === 'Dropdown') validateDropdown(inputField, elementForm);
             if (inputField.type === 'text' || inputField.type === 'number') validateTextField(inputField, elementForm)
             if (inputField.type === 'file') {
-                if (inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Select a file PDF, PNG or JPG'
+                if (inputField.files.length === 0) document.getElementById(elementForm.errorId).innerText = 'Seleccione un archivo PDF, PNG o JPG'
             }
         }
     });

@@ -20,7 +20,7 @@ const PersonalInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: true,
-        errorMessage: "Enter your full 'first name'",
+        errorMessage: "Ingrese su primer nombre",
         col: 4
     },
     {
@@ -33,7 +33,7 @@ const PersonalInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: false,
-        errorMessage: "Enter your full 'middle name'",
+        errorMessage: "Ingrese su segundo nombre",
         col: 4
     },
     {
@@ -75,12 +75,12 @@ const PersonalInformationForm = [
             {
                 hasChildren: {
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Social Security Number (SSN)',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
                     type: 'number',
-                    placeholder: 'Enter social security number here',
+                    placeholder: 'SSN',
                     maxLength: 9,
                     minLength: 9,
                     isRequired: true,
@@ -95,13 +95,13 @@ const PersonalInformationForm = [
             {
                 hasChildren: {
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Registro Único de Información Fiscal (RIF)',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
                     maxLength: 12,
                     minLength: 12,
-                    placeholder: 'Enter RIF here',
+                    placeholder: 'Registro Único de Información Fiscal (RIF)',
                     isRequired: true,
                     parentOf: 'Venezuela',
                     validationRegex: [{
@@ -114,13 +114,13 @@ const PersonalInformationForm = [
             {
                 hasChildren: {
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Registro Único Tributario (RUT)',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
                     maxLength: 9,
                     minLength: 8,
-                    placeholder: 'Enter RUT here',
+                    placeholder: 'Registro Único Tributario (RUT)',
                     parentOf: 'Colombia',
                     isRequired: true,
                     validationRegex: [{
@@ -133,9 +133,9 @@ const PersonalInformationForm = [
             {
                 hasChildren: {
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Código Único de Identificación Tributaria (CUIT)',
                     errorId: 'tax_id_error',
-                    placeholder: 'Enter CUIT/CUIL here',
+                    placeholder: 'Código Único de Identificación Tributaria (CUIT) ',
                     typeInput: 'textField',
                     type: 'number',
                     maxLength: 9, //SSN has 9 digits
@@ -152,9 +152,9 @@ const PersonalInformationForm = [
             {
                 hasChildren: {
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Registro Único de Contribuyentes (RUC)',
                     errorId: 'tax_id_error',
-                    placeholder: 'Enter RUC here',
+                    placeholder: 'Registro Único de Contribuyentes (RUC)',
                     typeInput: 'textField',
                     type: 'number',
                     maxLength: 11,
