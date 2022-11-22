@@ -40,7 +40,7 @@ const PersonalInformationForm = [
         id: 'last_name',
         label: 'Apellido del titular de la cuenta',
         errorId: 'last_name_error',
-        placeholder: 'Last name',
+        placeholder: 'Apellido',
         typeInput: 'textField',
         validationRegex: [
             {
@@ -61,7 +61,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'date_birthday',
-        label: 'Ingrese la fecha de nacimiento del dueño de la cuenta. Respetando el siguiente formato Mes, Dia, Año',
+        label: 'Ingrese la fecha de nacimiento del titular de la cuenta. Respetando el siguiente formato Mes, Dia, Año',
         errorId: 'date_birthday_error',
         placeholder: 'mm/dd/yyyy',
         typeInput: 'DatePicker',
