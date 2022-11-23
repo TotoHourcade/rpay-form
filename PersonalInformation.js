@@ -210,7 +210,7 @@ const PersonalInformationForm = [
                         { hasChildren: false, label: 'Arkansas', value: 'AR' },
                         { hasChildren: false, label: 'California', value: 'CA' },
                         { hasChildren: false, label: 'Colorado', value: 'CO' },
-                        { hasChildren: false, label: 'Connectiacut', value: 'CT' },
+                        { hasChildren: false, label: 'Connecticut', value: 'CT' },
                         { hasChildren: false, label: 'Delaware', value: 'DE' },
                         { hasChildren: false, label: 'Florida', value: 'FL' },
                         { hasChildren: false, label: 'Georgia', value: 'GA' },
@@ -417,7 +417,7 @@ const PersonalInformationForm = [
                         placeholder: 'mm/dd/yyyy',
                         typeInput: 'DatePicker',
                         isRequired: true,
-                        parentOf: 'Licencia de conducción'
+                        parentOf: 'Licencia de conducir'
                     },
                     {
                         id: 'validate_id_photo_2',
@@ -427,7 +427,7 @@ const PersonalInformationForm = [
                         typeInput: 'FileUpload',
                         fileUploaded: null,
                         isRequired: true,
-                        parentOf: 'Licencia de conducción'
+                        parentOf: 'Licencia de conducir'
                     },
                     {
                         id: 'validate_id_photo',
@@ -437,19 +437,19 @@ const PersonalInformationForm = [
                         typeInput: 'FileUpload',
                         fileUploaded: null,
                         isRequired: true,
-                        parentOf: 'Licencia de conducción'
+                        parentOf: 'Licencia de conducir'
                     },
-                ], value: 'Licencia de conducción'
+                ], value: 'Licencia de conducir'
             },
             {
                 hasChildren: [{
                     id: 'expiration_id',
-                    label: 'Ingrese la fecha de expiración de su ID',
+                    label: 'Ingrese la fecha de expiración de su Documento de identidad',
                     errorId: 'expiration_id_error',
                     placeholder: 'mm/dd/yyyy',
                     typeInput: 'DatePicker',
                     isRequired: true,
-                    parentOf: 'ID'
+                    parentOf: 'Documento de identidad'
                 }, {
                     id: 'validate_id_photo',
                     label: 'Fotografía del frente del documento de identidad vigente del titular de la cuenta bancaria',
@@ -458,7 +458,7 @@ const PersonalInformationForm = [
                     typeInput: 'FileUpload',
                     fileUploaded: null,
                     isRequired: true,
-                    parentOf: 'ID'
+                    parentOf: 'Documento de identidad'
                 },
                 {
                     id: 'validate_id_photo',
@@ -468,14 +468,14 @@ const PersonalInformationForm = [
                     typeInput: 'FileUpload',
                     fileUploaded: null,
                     isRequired: true,
-                    parentOf: 'ID'
-                },], value: 'ID'
+                    parentOf: 'Documento de identidad'
+                },], value: 'Documento de identidad'
             },
             {
                 hasChildren: [
                     {
                         id: 'expiration_id',
-                        label: 'Ingrese la fecha de expiración de su ID',
+                        label: 'Ingrese la fecha de expiración de su documento',
                         errorId: 'expiration_id_error',
                         placeholder: 'mm/dd/yyyy',
                         typeInput: 'DatePicker',
@@ -497,7 +497,7 @@ const PersonalInformationForm = [
             {
                 hasChildren: [{
                     id: 'expiration_id',
-                    label: 'Ingrese la fecha de expiración de su ID',
+                    label: 'Ingrese la fecha de expiración de su documento',
                     errorId: 'expiration_id_error',
                     placeholder: 'mm/dd/yyyy',
                     typeInput: 'DatePicker',
@@ -522,7 +522,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'document_type',
-        label: 'Seleccione un documento que pruebe la dirección del titular de la cuenta. El documento debe tener minimo 90 días',
+        label: 'Seleccione un documento que pruebe la dirección del titular de la cuenta. Si no esta vencido tiene que tener un maximo de 90 dias de la fecha de expedicion',
         options: [
             { hasChildren: false, label: 'Tipo de documento', value: 0 },
             { hasChildren: false, value: 'Factura de servicios públicos' },
