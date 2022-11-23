@@ -17,7 +17,7 @@ function selectValueDropdown(event) {
     }
 
     if (optionSelected.hasChildren) {
-        if(Array.isArray(optionSelected.hasChildren)){
+        if (Array.isArray(optionSelected.hasChildren)) {
             optionSelected.hasChildren.forEach((children) => {
                 if (children.typeInput === 'textField') {
                     document.getElementById(`${idElementSelected}-form`).innerHTML += TextField({ ...children, children: true });
@@ -33,7 +33,7 @@ function selectValueDropdown(event) {
                 }
 
             });
-        }else{
+        } else {
             if (optionSelected.hasChildren.typeInput === 'textField') {
                 document.getElementById(`${idElementSelected}-form`).innerHTML += TextField({ ...optionSelected.hasChildren, children: true });
             }
@@ -125,7 +125,7 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
     )
 }
 
-const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false, titleOfSection, endSection}) => {
+const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false, titleOfSection, endSection }) => {
     if (children) console.log("childnreeeen")
     return (
         `
@@ -247,9 +247,28 @@ const startForm = (typeForm) => {
         <div class="overflow-hidden shadow sm:rounded-md">
             <div class="bg-white px-4 py-5 sm:p-6 grid grid-cols-12 gap-2" id="dinamyc_form"> ${dynamicForm.toString().replaceAll(',', ' ')}</div>
             ${typeForm === 'BusinessForm' ? '<div id="shareholders" class="col-span-12"></div>' : ''}
-            <div class="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                <button type="submit" onclick="validateForm()"
-                    class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <div class="bg-gray-50 px-4 py-3  sm:px-6">
+            <p class="mt-3">
+                <b>Acuerdo de Usuario:</b>
+                <br>
+                <a href="https://reserve.org/appuseragreement">https://reserve.org/appuseragreement</a>
+            </p>
+            <p class="mt-3">
+                <b>Política de Privacidad:</b>
+                <br>
+                <a href="https://reserve.org/appprivacypolicy">https://reserve.org/appprivacypolicy
+                </a>
+            </p>
+            <p class="mt-3">
+            <b>Políticas Legales:
+            </b>
+            <br>
+            <a href="https://reserve.org/uslawenforcementrequestpolicy">https://reserve.org/uslawenforcementrequestpolicy</a>
+        </p>
+        <p class="mt-4">He leído y aceptado los términos y condiciones (Acuerdo de Usuario, Política de Privacidad y Políticas Legales) para hacer uso de Reserve y sus servicios asociados</p>
+
+            <button  type="submit" onclick="validateForm()"
+                    class="mt-4 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Enviar
                 </button>
             </div>
@@ -390,7 +409,7 @@ function validateForm() {
         if (elementForm.typeInput === 'Dropdown') {
             if (elementForm.options.length > 0) {
                 elementForm.options.forEach((option) => {
-                    if(Array.isArray(option.hasChildren)){
+                    if (Array.isArray(option.hasChildren)) {
                         option.hasChildren.forEach((child) => {
                             const childrenNode = document.getElementById(child.id);
                             dataForm = { ...dataForm, [child.id]: childrenNode.value }

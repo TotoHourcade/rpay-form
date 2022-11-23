@@ -38,9 +38,9 @@ const PersonalInformationForm = [
     },
     {
         id: 'last_name',
-        label: 'Apellido del titular de la cuenta',
+        label: 'Apellidos del titular de la cuenta',
         errorId: 'last_name_error',
-        placeholder: 'Apellido',
+        placeholder: 'Apellidos',
         typeInput: 'textField',
         validationRegex: [
             {
