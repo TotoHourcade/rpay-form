@@ -19,7 +19,7 @@ const BusinessInformationForm = [
         id: 'entity_name',
         label: 'Nombre legal de la entidad:',
         errorId: 'entity_name_error',
-        placeholder: '',
+        placeholder: 'Nombre registrado ante el organismo/autoridad competente.',
         typeInput: 'textField',
         validationRegex: [
             {
@@ -40,7 +40,8 @@ const BusinessInformationForm = [
         id: 'signature',
         label: 'Nombre completo del administrador de la compañía',
         errorId: 'signature_error',
-        placeholder: '',
+        placeholder: 'Nombre completo',
+        extraInfo: `Puede ser Gerente, Presidente o cualquier persona autorizada para recibir comunicaciones con respecto a esta entidad. Especifique el nombre completo de la persona autorizada para aceptar los términos y condiciones.`,
         typeInput: 'textField',
         validationRegex: [],
         maxLength: 200,
@@ -48,31 +49,12 @@ const BusinessInformationForm = [
         isRequired: true,
     },
     {
-        id: 'phone_number',
-        label: 'Número de teléfono de la entidad o del socio mayoritario',
-        errorId: 'phone_number_error',
-        placeholder: 'Phone number',
-        typeInput: 'textField',
-        validationRegex: [
-            {
-                validation: /^[0-9]*$/,
-                errorText: 'Please remove special characters +()- etc'
-            },
-        ],
-        maxLength: 200,
-        minLength: 5,
-        isRequired: true,
-        endSection:true,
-
-    },
-    {
-        titleOfSection:'Dirección',
-        id: 'tax_country',
-        label: 'Selecciona el país del titular de la cuenta',
+        id: 'tax_country_business',
+        label: 'Pais de constitución de la entidad',
         options: [
             {hasChildren: false, label:'Selecciona un país', value: 0},
             {
-                hasChildren:  {
+                hasChildren:  [{
                     id: 'tax_id',
                     label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
@@ -88,30 +70,28 @@ const BusinessInformationForm = [
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
-                },
-                value:'Estados Unidos',
-            },
-            {
-                hasChildren:  {
-                    id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
-                    errorId: 'tax_id_error',
+                }, 
+                {
+                    id: 'state_related_selection',
+                    label: 'Estado',
+                    errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
-                    maxLength: 12, 
-                    minLength: 12,
-                    placeholder: 'Enter RIF here',
-                    isRequired: true,
-                    parentOf: 'Venezuela',
                     validationRegex: [{ 
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
-                },
-                value:'Venezuela',
+                    maxLength: 50,
+                    minLength: 2,
+                    isRequired: true,
+                    parentOf: 'Estados Unidos',
+                }, 
+            
+            ],
+                value:'Estados Unidos',
             },
             {
-                hasChildren:  {
+                hasChildren:  [{
                     id: 'tax_id',
                     label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
@@ -126,11 +106,26 @@ const BusinessInformationForm = [
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
-                },
+                },{
+                    id: 'state_related_selection',
+                    label: 'Estado',
+                    errorId: 'state_related_selection_error',
+                    placeholder: '',
+                    typeInput: 'textField',
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
+                    maxLength: 50,
+                    minLength: 2,
+                    isRequired: true,
+                    parentOf: 'Colombia',
+                
+                }],
                 value:'Colombia',
             },
             {
-                hasChildren:  {
+                hasChildren:  [{
                     id: 'tax_id',
                     label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
@@ -145,11 +140,26 @@ const BusinessInformationForm = [
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
-                },
+            },{
+                id: 'state_related_selection',
+                label: 'Estado',
+                errorId: 'state_related_selection_error',
+                placeholder: '',
+                typeInput: 'textField',
+                validationRegex: [{ 
+                    validation: /(.*[a-z0-9]){2}/i,
+                    errorText: 'State needs to be min 2 characters'
+                }],
+                maxLength: 50,
+                minLength: 2,
+                isRequired: true,
+                parentOf: 'Argentina',
+            
+            }],
                 value:'Argentina',
             },
             {
-                hasChildren:  {
+                hasChildren:  [{
                     id: 'tax_id',
                     label: 'Please enter the account owner Tax ID # without any dashes',
                     errorId: 'tax_id_error',
@@ -164,7 +174,21 @@ const BusinessInformationForm = [
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
-                },
+                }, {
+                    id: 'state_related_selection',
+                    label: 'Estado',
+                    errorId: 'state_related_selection_error',
+                    placeholder: '',
+                    typeInput: 'textField',
+                    validationRegex: [{ 
+                        validation: /(.*[a-z0-9]){2}/i,
+                        errorText: 'State needs to be min 2 characters'
+                    }],
+                    maxLength: 50,
+                    minLength: 2,
+                    isRequired: true,
+                    parentOf: 'Panama',
+                }],
                 value:'Panama',
             },
         ],
@@ -173,6 +197,26 @@ const BusinessInformationForm = [
         typeInput: 'Dropdown',
         isRequired: true,
     },
+    {
+        id: 'phone_number',
+        label: 'Número de teléfono de la entidad o del socio mayoritario',
+        errorId: 'phone_number_error',
+        placeholder: 'Número de teléfono de la compania',
+        extraInfo:`Puede ser un gerente o persona autorizada para recibir notificaciones con respecto a la entidad. Indique el número telefónico correspondiente, con el código de área y país.`,
+        typeInput: 'textField',
+        validationRegex: [
+            {
+                validation: /^[0-9]*$/,
+                errorText: 'Please remove special characters +()- etc'
+            },
+        ],
+        maxLength: 200,
+        minLength: 5,
+        isRequired: true,
+        endSection:true,
+
+    },
+    
 
     // {
     //     id: 'region_formation',
@@ -187,6 +231,8 @@ const BusinessInformationForm = [
 
     
     {
+        titleOfSection:'Dirección',
+
         id: 'country_selection',
         hasChildren: 'state_related_selection',
         label: 'Selecciona el pais de la compania',
@@ -267,25 +313,6 @@ const BusinessInformationForm = [
                     }],
                     maxLength: 50,
                     minLength: 2,
-                    parentOf: 'Venezuela',
-                    isRequired: true,
-                },
-                value:'Venezuela',
-                label: 'Venezuela'
-            },
-            {hasChildren: 
-                {
-                    id: 'state_related_selection',
-                    label: 'Company State',
-                    errorId: 'state_related_selection_error',
-                    placeholder: '',
-                    typeInput: 'textField',
-                    validationRegex: [{ 
-                        validation: /(.*[a-z0-9]){2}/i,
-                        errorText: 'State needs to be min 2 characters'
-                    }],
-                    maxLength: 50,
-                    minLength: 2,
                     isRequired: true,
                     parentOf: 'Colombia',
                 },
@@ -352,7 +379,7 @@ const BusinessInformationForm = [
     },
     {
         id: 'company_postal_code',
-        label: 'Código de la compania',
+        label: 'Código postal de la compania',
         errorId: 'postal_code_error',
         placeholder: '',
         typeInput: 'textField',
@@ -388,7 +415,17 @@ const BusinessInformationForm = [
     {
         titleOfSection: 'Documentos',
         id: 'tax_id_document',
-        label: 'Tax ID Document',
+        label: 'Documento de identificación fiscal de la Entidad',
+        extraInfo:`Según el país de constitución deberás adjuntar el archivo (comprobante digital o planilla) en formato PDF:
+
+        • Estados Unidos: EIN (Employer Identification Number)
+        • Colombia: Registro Único Tributario (RUT)
+        • Argentina: Código Único de Identificación Tributaria (CUIT)
+        • Panamá/Perú: Registro Único de Contribuyentes (RUC)
+        • Otras jurisdicciones: comprobante fiscal de la entidad emitido por el país donde se encuentra registrada (vigente)
+        
+        Recuerda que las capturas de pantalla o las fotos tomadas a la pantalla no son válidas como documentos a consignar.`,
+
         errorId: 'tax_id_document_error',
         placeholder: '',
         typeInput: 'FileUpload',
@@ -397,36 +434,59 @@ const BusinessInformationForm = [
     },
     {
         id: 'document_creation',
-        label: 'Document Creation of Business',
+        label: 'Acta Constitutiva, Documentos de Incorporación o Registro de Comercio de la entidad',
+        extraInfo:`Deberás incluir el Acta Constitutiva y las Actas de Asambleas que reflejen las modificaciones posteriores, por ejemplo:
+
+        • Documento donde aparezca la composición accionaria actual de la entidad
+        • Nombramiento de la Junta Directiva vigente
+        • Cambios de la denominación de la entidad (razón social) o de su domicilio principal/fiscal
+        • Cambios en el objeto(s) de la entidad
+        • Cualquier otro cambio o modificación sustancial en la administración o datos de la entidad
+        
+        Si hubo algun cambio en administracion de la empresa, incluir el acta donde se reflejen las modificaciones. 
+        
+        Puedes adjuntar varios archivos/documentos en este campo. 
+        
+        Debes adjuntar el archivo o archivos en formato PDF.
+        
+        Recuerda que las capturas de pantalla o las fotos tomadas a la pantalla no son válidas como documentos a consignar. Los documentos deben estar firmados.`,
         errorId: 'document_creation_error',
         placeholder: '',
         typeInput: 'FileUpload',
         fileUploaded: null,
         isRequired: true,
     },
-    {
-        id: 'validate_addres_type',
-        label: 'Validate address document type',
-        options: [
-            {hasChildren:false, label: 'Bank statement with less than 90 days', value: 'Bank statement'},
-        ],
-        errorId: 'validate_addres_type_error',
-        placeholder: '',
-        typeInput: 'Dropdown',
-        isRequired: true,
-    },
+    // {
+    //     id: 'validate_addres_type',
+    //     label: 'Documento que certifique la creación de la empresa',
+       
+    //     options: [
+    //         {hasChildren:false, label: 'Bank statement with less than 90 days', value: 'Bank statement'},
+    //     ],
+    //     errorId: 'validate_addres_type_error',
+    //     placeholder: '',
+    //     typeInput: 'Dropdown',
+    //     isRequired: true,
+    // },
     {
         id: 'validate_address_document',
-        label: 'Validate Address Document',
+        label: 'Prueba de dirección de la entidad',
         errorId: 'validate_address_document_error',
         placeholder: '',
         typeInput: 'FileUpload',
+        extraInfo:`Debes adjuntar el archivo en formato PDF. Puede ser cualquiera de los siguientes documentos:
+        - Estado de cuenta bancario con menos de 90 dias de emision
+        - Factura de servicios con menos de 90 dias de emision
+        - Contrato de arrendamiento vigente
+        
+        Recuerda que las capturas de pantalla o las fotos tomadas a la pantalla no son válidas como documentos a consignar.`,
         fileUploaded: null,
         isRequired: true,
     },
     {
         id: 'document_shareholders',
-        label: 'Document of list of shareholders',
+        label: 'Composición accionaria/capital ',
+        extraInfo:'La evidencia de composición accionaria puede estar reflejada en el Operating Agreement, estatutos, Affidavit (declaración jurada), artítulos de incorporación o registro de acciones que refleje claramente los porcentajes o composición accionaria. El documento debe estar firmado.',
         errorId: 'document_shareholders_error',
         placeholder: '',
         typeInput: 'FileUpload',
@@ -435,8 +495,8 @@ const BusinessInformationForm = [
     },
     {
         id: "add_shareholder",
-        label: 'Everyone who has more that 25% of business uploads Shareholders info',
-        buttonLabel: 'Add Shareholder',
+        label: 'Ingresa todos los accionistas con un 25% o mayor porcentaje de participación accionaria en la entidad.',
+        buttonLabel: 'Agregar nuevo accionista',
         icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>',
         placeholder: '',
         typeInput: 'Button',

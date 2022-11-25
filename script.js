@@ -5,7 +5,9 @@ let formData = { typeForm: '', hasErrors: false };
 function selectValueDropdown(event) {
     const valueSelected = event.target.value;
     const idElementSelected = event.target.getAttribute('id');
-    const currentItem = PersonalInformationForm.find(element => element.id === idElementSelected);
+    const FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
+ 
+    const currentItem = FormItems.find(element => element.id === idElementSelected);
 
     if (!currentItem) return;
     const optionSelected = currentItem.options.find(element => element.value == valueSelected);
@@ -61,11 +63,15 @@ const Button = ({ label, buttonLabel, id, onPress, icon }) => {
     )
 }
 
-const DropDownField = ({ label, id, errorId, options, children = false, titleOfSection, endSection }) => {
+const DropDownField = ({ label, id, errorId, options, children = false, titleOfSection, endSection,extraInfo = false}) => {
     return (
         ` ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
         <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}" id="${id}-form">
-        <label for="first-name" class="block text-sm font-medium text-gray-700">${label}</label>
+        <label for="first-name" class="block text-sm font-medium text-gray-700">${label} 
+        ${!extraInfo ? '' : `<button type="button"  class="btn btn-secondary button-info" data-toggle="tooltip" data-placement="right" title="${extraInfo}">
+        i
+        </button>`}
+        </label>
         <select name="" id="${id}"
         onchange="selectValueDropdown(event)"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
@@ -77,12 +83,16 @@ const DropDownField = ({ label, id, errorId, options, children = false, titleOfS
     )
 }
 
-const UploadFileField = ({ label, errorId, id, children = false, titleOfSection }) => {
+const UploadFileField = ({ label, errorId, id, children = false, titleOfSection,extraInfo }) => {
     return (`
     ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
 
     <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}"">
-                                <label class="block text-sm font-medium text-gray-700">${label}</label>
+                                <label class="block text-sm font-medium text-gray-700">${label}
+                                ${!extraInfo ? '' : `<button type="button"  class="btn btn-secondary button-info" data-toggle="tooltip" data-placement="right" title="${extraInfo}">
+                                i
+                                </button>`}
+                                </label>
                                 <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
                                     onclick="openDynamicInputUpload(${id})">
                                     <div class="space-y-1 text-center">
@@ -127,13 +137,17 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
     )
 }
 
-const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false, titleOfSection, endSection }) => {
+const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false, titleOfSection, endSection, extraInfo }) => {
     if (children) console.log("childnreeeen")
     return (
         `
         ${titleOfSection ? `<div class='col-span-12 mt-5'><h2>${titleOfSection}</h2></div>` : ''}
         <div class="col-span-12 sm:col-span-${col} ${children ? 'pt-2' : ''}" id="${id}-form">
-        <label for="${id}" class="block text-sm font-medium text-gray-700">${label}</label>
+        <label for="${id}" class="block text-sm font-medium text-gray-700">${label}
+        ${!extraInfo ? '' : `<button type="button"  class="btn btn-secondary button-info" data-toggle="tooltip" data-placement="right" title="${extraInfo}">
+        i
+        </button>`}
+        </label>
         <input type="${type}" maxlength=${maxLength} minlength=${minLength} name="${id}" id="${id}" 
         placeholder="${placeholder}" autocomplete="given-name"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
@@ -333,6 +347,7 @@ function validateDate(inputField, elementForm) {
 }
 
 function validateDropdown(inputField, elementForm) {
+    console.log('hola')
     if (inputField.value == 0 && elementForm.isRequired) {
         document.getElementById(elementForm.errorId).innerHTML = 'Seleccione una opción'
         formData.hasErrors = true;

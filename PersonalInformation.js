@@ -69,7 +69,7 @@ const PersonalInformationForm = [
     },
     {
         id: 'tax_country',
-        label: 'País de residencia/domicilio del titular de la cuenta bancaria ',
+        label: 'País de residencia/domicilio del titular de la cuenta bancaria',
         options: [
             { hasChildren: false, label: 'Seleccione país', value: 0 },
             {
@@ -114,7 +114,7 @@ const PersonalInformationForm = [
             {
                 hasChildren: {
                     id: 'tax_id',
-                    label: 'Ingrese su Registro Único Tributario (RUT)',
+                    label: 'Ingrese su RegistroXDÚnico Tributario (RUT)',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',

@@ -26,3 +26,12 @@ header{
     background-image: url('layer.png');
     background-size: cover;
 }
+
+.button-info{
+    color: #909090;
+    border-radius: 10px!important;
+    background: gainsboro!important;
+    width: 20px!important;
+    font-weight: bold!important;
+    margin-left: 5px!important;
+}
