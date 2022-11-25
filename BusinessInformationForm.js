@@ -1,5 +1,6 @@
 const BusinessInformationForm = [
     {
+        titleOfSection: 'Información Personal',
         id: 'type_entity',
         label: 'Type of Entity',
         options: [
@@ -42,6 +43,24 @@ const BusinessInformationForm = [
         placeholder: '',
         typeInput: 'textField',
         validationRegex: [],
+        maxLength: 200,
+        minLength: 5,
+        isRequired: true,
+        endSection:true,
+    },
+    {
+        titleOfSection:'Dirección',
+        id: 'phone_number',
+        label: 'Please enter the account owner number including country code',
+        errorId: 'phone_number_error',
+        placeholder: 'Phone number',
+        typeInput: 'textField',
+        validationRegex: [
+            {
+                validation: /^[0-9]*$/,
+                errorText: 'Please remove special characters +()- etc'
+            },
+        ],
         maxLength: 200,
         minLength: 5,
         isRequired: true,
@@ -153,49 +172,18 @@ const BusinessInformationForm = [
         typeInput: 'Dropdown',
         isRequired: true,
     },
-    {
-        id: 'tax_id_document',
-        label: 'Tax ID Document',
-        errorId: 'tax_id_document_error',
-        placeholder: '',
-        typeInput: 'FileUpload',
-        fileUploaded: null,
-        isRequired: true,
-    },
-    {
-        id: 'region_formation',
-        label: 'Region of Formation',
-        options: ['no idea where search this info',],
-        errorId: 'region_formation_error',
-        placeholder: '',
-        typeInput: 'Dropdown',
-        isRequired: true,
-    },
-    {
-        id: 'phone_number',
-        label: 'Please enter the account owner number including country code',
-        errorId: 'phone_number_error',
-        placeholder: 'Phone number',
-        typeInput: 'textField',
-        validationRegex: [
-            {
-                validation: /^[0-9]*$/,
-                errorText: 'Please remove special characters +()- etc'
-            },
-        ],
-        maxLength: 200,
-        minLength: 5,
-        isRequired: true,
-    },
-    {
-        id: 'document_shareholders',
-        label: 'Document of list of shareholders',
-        errorId: 'document_shareholders_error',
-        placeholder: '',
-        typeInput: 'FileUpload',
-        fileUploaded: null,
-        isRequired: true,
-    },
+
+    // {
+    //     id: 'region_formation',
+    //     label: 'Region of Formation',
+    //     options: ['no idea where search this info',],
+    //     errorId: 'region_formation_error',
+    //     placeholder: '',
+    //     typeInput: 'Dropdown',
+    //     isRequired: true,
+    // },
+    
+
     {
         id: 'company_street',
         label: 'Company Street',
@@ -392,6 +380,17 @@ const BusinessInformationForm = [
         maxLength: 50,
         minLength: 2,
         isRequired: true,
+        endSection:true,
+    },
+    {
+        titleOfSection: 'Documentos',
+        id: 'tax_id_document',
+        label: 'Tax ID Document',
+        errorId: 'tax_id_document_error',
+        placeholder: '',
+        typeInput: 'FileUpload',
+        fileUploaded: null,
+        isRequired: true,
     },
     {
         id: 'document_creation',
@@ -441,6 +440,15 @@ const BusinessInformationForm = [
         ],
         maxLength: 200,
         minLength: 5,
+        isRequired: true,
+    },
+    {
+        id: 'document_shareholders',
+        label: 'Document of list of shareholders',
+        errorId: 'document_shareholders_error',
+        placeholder: '',
+        typeInput: 'FileUpload',
+        fileUploaded: null,
         isRequired: true,
     },
     {

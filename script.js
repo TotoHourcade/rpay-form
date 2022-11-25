@@ -77,8 +77,10 @@ const DropDownField = ({ label, id, errorId, options, children = false, titleOfS
     )
 }
 
-const UploadFileField = ({ label, errorId, id, children = false }) => {
+const UploadFileField = ({ label, errorId, id, children = false, titleOfSection }) => {
     return (`
+    ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
+
     <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}"">
                                 <label class="block text-sm font-medium text-gray-700">${label}</label>
                                 <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"

@@ -24,4 +24,5 @@ header{
     min-height: 50vh;
     background-position: center center;
     background-image: url('layer.png');
+    background-size: cover;
 }
