@@ -2,7 +2,7 @@ const BusinessInformationForm = [
     {
         titleOfSection: 'Información Personal',
         id: 'type_entity',
-        label: 'Type of Entity',
+        label: 'Tipo de entidad',
         options: [
             {hasChildren: false, value: 'Company'},
             {hasChildren: false, value: 'LLC'},
@@ -17,7 +17,7 @@ const BusinessInformationForm = [
     },
     {
         id: 'entity_name',
-        label: 'Entity name',
+        label: 'Nombre legal de la entidad:',
         errorId: 'entity_name_error',
         placeholder: '',
         typeInput: 'textField',
@@ -38,7 +38,7 @@ const BusinessInformationForm = [
     },
     {
         id: 'signature',
-        label: 'Authorized Signature ( First name + Last)',
+        label: 'Nombre completo del administrador de la compañía',
         errorId: 'signature_error',
         placeholder: '',
         typeInput: 'textField',
@@ -46,12 +46,10 @@ const BusinessInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: true,
-        endSection:true,
     },
     {
-        titleOfSection:'Dirección',
         id: 'phone_number',
-        label: 'Please enter the account owner number including country code',
+        label: 'Número de teléfono de la entidad o del socio mayoritario',
         errorId: 'phone_number_error',
         placeholder: 'Phone number',
         typeInput: 'textField',
@@ -64,12 +62,15 @@ const BusinessInformationForm = [
         maxLength: 200,
         minLength: 5,
         isRequired: true,
+        endSection:true,
+
     },
     {
+        titleOfSection:'Dirección',
         id: 'tax_country',
-        label: 'Please enter the account owner Tax Country',
+        label: 'Selecciona el país del titular de la cuenta',
         options: [
-            {hasChildren: false, label:'Select country', value: 0},
+            {hasChildren: false, label:'Selecciona un país', value: 0},
             {
                 hasChildren:  {
                     id: 'tax_id',
@@ -82,13 +83,13 @@ const BusinessInformationForm = [
                     maxLength: 9, 
                     minLength: 9,
                     isRequired: true,
-                    parentOf: 'United States',
+                    parentOf: 'Estados Unidos',
                     validationRegex: [{ 
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
                 },
-                value:'United States',
+                value:'Estados Unidos',
             },
             {
                 hasChildren:  {
@@ -184,37 +185,16 @@ const BusinessInformationForm = [
     // },
     
 
-    {
-        id: 'company_street',
-        label: 'Company Street',
-        errorId: 'company_street_error',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [],
-        maxLength: 200,
-        minLength: 2,
-        isRequired: true,
-    },
-    {
-        id: 'company_street_2',
-        label: 'Company Street 2',
-        errorId: 'company_street_2error',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [],
-        maxLength: 200,
-        minLength: 2,
-        isRequired: false,
-    },
+    
     {
         id: 'country_selection',
         hasChildren: 'state_related_selection',
-        label: 'Company Country',
+        label: 'Selecciona el pais de la compania',
         options: [
-            {hasChildren: false, label:'Select country', value: 0},
+            {hasChildren: false, label:'Selecciona un país', value: 0},
             {hasChildren: {
                 id: 'state_related_selection',
-                label: 'Company State',
+                label: 'Selecciona un país',
                 options: [
                     {hasChildren:false, label: 'Select State', value: 0},
                     {hasChildren:false, label: 'Alabama', value: 'AL'},
@@ -272,8 +252,8 @@ const BusinessInformationForm = [
                 placeholder: '',
                 typeInput: 'Dropdown',
                 isRequired: true,
-                parentOf: 'United States',
-            }, value:'United States', label: 'United States'},
+                parentOf: 'Estados Unidos',
+            }, value:'Estados Unidos', label: 'Estados Unidos'},
             {hasChildren: 
                 {
                     id: 'state_related_selection',
@@ -358,7 +338,7 @@ const BusinessInformationForm = [
     },
     {
         id: 'company_city_related',
-        label: 'Company City',
+        label: 'Ciudad de la compania',
         errorId: 'company_city_related_error',
         placeholder: '',
         typeInput: 'textField',
@@ -372,7 +352,7 @@ const BusinessInformationForm = [
     },
     {
         id: 'company_postal_code',
-        label: 'Company Postal Code',
+        label: 'Código de la compania',
         errorId: 'postal_code_error',
         placeholder: '',
         typeInput: 'textField',
@@ -380,7 +360,30 @@ const BusinessInformationForm = [
         maxLength: 50,
         minLength: 2,
         isRequired: true,
+    },
+    {
+        id: 'company_street',
+        label: 'Dirección de la compania',
+        errorId: 'company_street_error',
+        placeholder: '',
+        typeInput: 'textField',
+        validationRegex: [],
+        maxLength: 200,
+        minLength: 2,
+        isRequired: true,
+    },
+    {
+        id: 'company_street_2',
+        label: 'Dirección 2',
+        errorId: 'company_street_2error',
+        placeholder: '',
+        typeInput: 'textField',
+        validationRegex: [],
+        maxLength: 200,
+        minLength: 2,
+        isRequired: false,
         endSection:true,
+
     },
     {
         titleOfSection: 'Documentos',
@@ -419,27 +422,6 @@ const BusinessInformationForm = [
         placeholder: '',
         typeInput: 'FileUpload',
         fileUploaded: null,
-        isRequired: true,
-    },
-    {
-        id: 'reference_account_name',
-        label: 'Reference account name and number',
-        errorId: 'reference_account_name_error',
-        placeholder: '',
-        typeInput: 'textField',
-        validationRegex: [
-            {
-                validation: /^(?!.*([A-Za-zñÑáéíóúÁÉÍÓÚ\s])\1{3}).+$/,
-                errorText: 'Incluye tu nombre completo, tal como aparece en tu identificación'
-            },
-            {
-                validation: /^[A-Za-z][A-Za-z]*$/,
-                errorText: 'Incluye tu nombre completo, tal como aparece en tu identificación'
-            }
-
-        ],
-        maxLength: 200,
-        minLength: 5,
         isRequired: true,
     },
     {
