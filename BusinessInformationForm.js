@@ -56,17 +56,17 @@ const BusinessInformationForm = [
             {
                 hasChildren:  [{
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Social Security Number (SSN)',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
                     type: 'number',
-                    placeholder: 'Enter social security number here',
-                    maxLength: 9, 
+                    placeholder: 'SSN',
+                    maxLength: 9,
                     minLength: 9,
                     isRequired: true,
-                    parentOf: 'Estados Unidos',
-                    validationRegex: [{ 
+                    parentOf: 'United States',
+                    validationRegex: [{
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
@@ -74,15 +74,62 @@ const BusinessInformationForm = [
                 {
                     id: 'state_related_selection',
                     label: 'Estado',
-                    errorId: 'state_related_selection_error',
+                    options: [
+                        { hasChildren: false, label: 'Elegir estado', value: 0 },
+                        { hasChildren: false, label: 'Alabama', value: 'AL' },
+                        { hasChildren: false, label: 'Alaska', value: 'AK' },
+                        { hasChildren: false, label: 'Arizona', value: 'AZ' },
+                        { hasChildren: false, label: 'Arkansas', value: 'AR' },
+                        { hasChildren: false, label: 'California', value: 'CA' },
+                        { hasChildren: false, label: 'Colorado', value: 'CO' },
+                        { hasChildren: false, label: 'Connecticut', value: 'CT' },
+                        { hasChildren: false, label: 'Delaware', value: 'DE' },
+                        { hasChildren: false, label: 'Florida', value: 'FL' },
+                        { hasChildren: false, label: 'Georgia', value: 'GA' },
+                        { hasChildren: false, label: 'Hawaii', value: 'HI' },
+                        { hasChildren: false, label: 'Idaho', value: 'ID' },
+                        { hasChildren: false, label: 'Illinois', value: 'IL' },
+                        { hasChildren: false, label: 'Indiana', value: 'IN' },
+                        { hasChildren: false, label: 'Iowa', value: 'IA' },
+                        { hasChildren: false, label: 'Kansas', value: 'KS' },
+                        { hasChildren: false, label: 'Kentuky', value: 'KY' },
+                        { hasChildren: false, label: 'Louisiana', value: 'LA' },
+                        { hasChildren: false, label: 'Maine', value: 'ME' },
+                        { hasChildren: false, label: 'Maryland', value: 'MD' },
+                        { hasChildren: false, label: 'Massachusetts', value: 'MA' },
+                        { hasChildren: false, label: 'Michigan', value: 'MI' },
+                        { hasChildren: false, label: 'Minnesota', value: 'MN' },
+                        { hasChildren: false, label: 'Mississippi', value: 'MS' },
+                        { hasChildren: false, label: 'Missouri', value: 'MO' },
+                        { hasChildren: false, label: 'Montana', value: 'MT' },
+                        { hasChildren: false, label: 'Nebraska', value: 'NE' },
+                        { hasChildren: false, label: 'Nevada', value: 'NV' },
+                        { hasChildren: false, label: 'New Hampshire', value: 'NH' },
+                        { hasChildren: false, label: 'New Jersey', value: 'NJ' },
+                        { hasChildren: false, label: 'New Mexico', value: 'NM' },
+                        { hasChildren: false, label: 'New York', value: 'NY' },
+                        { hasChildren: false, label: 'North Carolina', value: 'NC' },
+                        { hasChildren: false, label: 'North Dakota', value: 'ND' },
+                        { hasChildren: false, label: 'Ohio', value: 'OH' },
+                        { hasChildren: false, label: 'Oklahoma', value: 'OK' },
+                        { hasChildren: false, label: 'Oregon', value: 'OR' },
+                        { hasChildren: false, label: 'PennsyIvania', value: 'PA' },
+                        { hasChildren: false, label: 'Rhode Island', value: 'RI' },
+                        { hasChildren: false, label: 'South Carolina', value: 'SC' },
+                        { hasChildren: false, label: 'South Dakota', value: 'SD' },
+                        { hasChildren: false, label: 'Tennessee', value: 'TN' },
+                        { hasChildren: false, label: 'Texas', value: 'TX' },
+                        { hasChildren: false, label: 'Utah', value: 'UT' },
+                        { hasChildren: false, label: 'Vermont', value: 'VT' },
+                        { hasChildren: false, label: 'Virginia', value: 'VA' },
+                        { hasChildren: false, label: 'Washington', value: 'WA' },
+                        { hasChildren: false, label: 'West Virginia', value: 'WV' },
+                        { hasChildren: false, label: 'Wisconsin', value: 'WI' },
+                        { hasChildren: false, label: 'Wyoming', value: 'WY' },
+                    ],
+                    errorId: 'state_related_error',
                     placeholder: '',
-                    typeInput: 'textField',
-                    validationRegex: [{ 
-                        validation: /(.*[a-z0-9]){2}/i,
-                        errorText: 'State needs to be min 2 characters'
-                    }],
-                    maxLength: 50,
-                    minLength: 2,
+                    typeInput: 'Dropdown',
                     isRequired: true,
                     parentOf: 'Estados Unidos',
                 }, 
@@ -93,16 +140,16 @@ const BusinessInformationForm = [
             {
                 hasChildren:  [{
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Registro Único Tributario (RUT)',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',
                     maxLength: 9,
                     minLength: 8,
-                    placeholder: 'Enter RUT here',
+                    placeholder: 'Registro Único Tributario (RUT)',
                     parentOf: 'Colombia',
                     isRequired: true,
-                    validationRegex: [{ 
+                    validationRegex: [{
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
@@ -127,20 +174,20 @@ const BusinessInformationForm = [
             {
                 hasChildren:  [{
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Código Único de Identificación Tributaria (CUIT)',
                     errorId: 'tax_id_error',
-                    placeholder: 'Enter CUIT/CUIL here',
+                    placeholder: 'Código Único de Identificación Tributaria (CUIT) ',
                     typeInput: 'textField',
-                    type:'number',
+                    type: 'number',
                     maxLength: 9, //SSN has 9 digits
                     minLength: 8,
                     isRequired: true,
-                    parentOf:'Argentina',
-                    validationRegex: [{ 
+                    parentOf: 'Argentina',
+                    validationRegex: [{
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
-            },{
+                },{
                 id: 'state_related_selection',
                 label: 'Estado',
                 errorId: 'state_related_selection_error',
@@ -161,16 +208,16 @@ const BusinessInformationForm = [
             {
                 hasChildren:  [{
                     id: 'tax_id',
-                    label: 'Please enter the account owner Tax ID # without any dashes',
+                    label: 'Ingrese su Registro Único de Contribuyentes (RUC)',
                     errorId: 'tax_id_error',
-                    placeholder: 'Enter RUC here',
+                    placeholder: 'Registro Único de Contribuyentes (RUC)',
                     typeInput: 'textField',
-                    type:'number',
+                    type: 'number',
                     maxLength: 11,
                     minLength: 7,
                     isRequired: true,
-                    parentOf:'Panama',
-                    validationRegex: [{ 
+                    parentOf: 'Panama',
+                    validationRegex: [{
                         validation: /(.*[a-z0-9]){2}/i,
                         errorText: 'State needs to be min 2 characters'
                     }],
@@ -240,9 +287,9 @@ const BusinessInformationForm = [
             {hasChildren: false, label:'Selecciona un país', value: 0},
             {hasChildren: {
                 id: 'state_related_selection',
-                label: 'Selecciona un país',
+                label: 'Selecciona el estado de la compania',
                 options: [
-                    {hasChildren:false, label: 'Select State', value: 0},
+                    {hasChildren:false, label: 'Selecciona el estado', value: 0},
                     {hasChildren:false, label: 'Alabama', value: 'AL'},
                     {hasChildren:false, label: 'Alaska', value: 'AK'},
                     {hasChildren:false, label: 'Arizona', value: 'AZ'},
@@ -303,7 +350,7 @@ const BusinessInformationForm = [
             {hasChildren: 
                 {
                     id: 'state_related_selection',
-                    label: 'Company State',
+                    label: 'Estado de la compania',
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -322,7 +369,7 @@ const BusinessInformationForm = [
             {hasChildren: 
                 {
                     id: 'state_related_selection',
-                    label: 'Company State',
+                    label: 'Estado de la compania',
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',
@@ -341,7 +388,7 @@ const BusinessInformationForm = [
             {hasChildren: 
                 {
                     id: 'state_related_selection',
-                    label: 'Company State',
+                    label: 'Estado de la compania',
                     errorId: 'state_related_selection_error',
                     placeholder: '',
                     typeInput: 'textField',

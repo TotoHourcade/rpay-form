@@ -114,7 +114,7 @@ const PersonalInformationForm = [
             {
                 hasChildren: {
                     id: 'tax_id',
-                    label: 'Ingrese su RegistroXDÚnico Tributario (RUT)',
+                    label: 'Ingrese su Registro Único Tributario (RUT)',
                     errorId: 'tax_id_error',
                     placeholder: '',
                     typeInput: 'textField',

@@ -1,12 +1,17 @@
-let formData = { typeForm: '', hasErrors: false };
+let formData = { typeForm: '', hasShareholder:false, hasErrors: false };
 
 // Create a new children when a dropdown value has children.
 // Also, delete the last children added if needs
 function selectValueDropdown(event) {
     const valueSelected = event.target.value;
     const idElementSelected = event.target.getAttribute('id');
-    const FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
- 
+    let FormItems = []
+    if(!formData.hasShareholder) {
+        FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
+    }else{
+        FormItems = BusinessInformationForm.concat(shareholdersList.flat());
+    }
+
     const currentItem = FormItems.find(element => element.id === idElementSelected);
 
     if (!currentItem) return;
@@ -148,7 +153,7 @@ const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type
         i
         </button>`}
         </label>
-        <input type="${type}" maxlength=${maxLength} minlength=${minLength} name="${id}" id="${id}" 
+        <input type="${type}" name="${id}" id="${id}" 
         placeholder="${placeholder}" autocomplete="given-name"
             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             ${isRequired ? '' : `<span class="text-xs text-dark mt-1 " id="${id}-info" style='color:gray'>* Opcional</span>`}
@@ -347,7 +352,6 @@ function validateDate(inputField, elementForm) {
 }
 
 function validateDropdown(inputField, elementForm) {
-    console.log('hola')
     if (inputField.value == 0 && elementForm.isRequired) {
         document.getElementById(elementForm.errorId).innerHTML = 'Seleccione una opción'
         formData.hasErrors = true;
@@ -370,6 +374,8 @@ function validateDropdown(inputField, elementForm) {
 }
 
 function validateTextField(inputField, elementForm) {
+    console.log(elementForm, inputField)
+
     if (inputField.value === '' && elementForm.isRequired) {
         if (elementForm.errorMessage) {
             document.getElementById(elementForm.errorId).innerHTML = elementForm.errorMessage
@@ -383,7 +389,9 @@ function validateTextField(inputField, elementForm) {
     }
     if (!elementForm.validationRegex) return;
     if (elementForm.validationRegex.length > 0 && inputField.value != '') {
+
         elementForm.validationRegex.forEach((validationElement) => {
+            console.log(validationElement)
             if (!validationElement.validation.test(inputField.value)) {
                 formData.hasErrors = true;
                 document.getElementById(elementForm.errorId).innerText = validationElement.errorText
@@ -395,10 +403,10 @@ function validateTextField(inputField, elementForm) {
 function validateForm() {
     formData.hasErrors = false;
     let FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
+    console.log(BusinessInformationForm)
     if (formData.typeForm == 'BusinessForm') {
         FormItems = FormItems.concat(shareholdersList.flat());
     }
-
     console.log(FormItems)
 
     FormItems.forEach(elementForm => {
@@ -454,13 +462,34 @@ const getShareholdersForm = (shareholder) => {
     //We do it this way so the original array does not get passed by reference
     let ShareholdersForm = JSON.parse(JSON.stringify(PersonalInformationForm));
 
-    return ShareholdersForm.concat({
+    PersonalInformationForm.forEach((item, index) => {
+        if(item.validationRegex){
+            ShareholdersForm[index].validationRegex = item.validationRegex;
+        }
+
+        if(item.hasChildren){
+
+            if(Array.isArray(item.hasChildren)){
+                item.hasChildren.forEach((element,indexChild) => {
+                    if(element.hasChildren.validationRegex) {
+                        ShareholdersForm[index].hasChildren[indexChild].validationRegex = element.validationRegex;
+                    }
+                })
+            }else{
+                if(item.hasChildren.validationRegex) {
+                    ShareholdersForm[index].hasChildren.validationRegex = item.hasChildren.validationRegex;
+                }
+            }
+        }
+    })
+    console.log(ShareholdersForm)
+
+    const newForm = ShareholdersForm.concat({
         id: 'company_role',
         label: 'Company Role',
         errorId: 'company_role_error',
         placeholder: '',
         typeInput: 'textField',
-        validationRegex: [],
         maxLength: 200,
         minLength: 2,
         isRequired: true,
@@ -492,9 +521,12 @@ const getShareholdersForm = (shareholder) => {
             }
             return element
         })
+        console.log(newForm);
+        return newForm
 }
 
 const addShareholder = () => {
+    formData.hasShareholder = true;
     if (shareholdersList.length == 4) return
     console.log(shareholdersList)
     const shareholders = shareholdersList.length + 1;
@@ -533,7 +565,9 @@ const removeShareholder = (event) => { // This will need refactoring
         }
     });
     shareholdersList = shareholdersList.filter(e => e)
-
+    if(shareholdersList.length === 0){
+        formData.hasShareholder = false;
+    }
     // This loop is for the form container
     shareholdersList = shareholdersList.map((shareholder, index) => {
         const indexShareHolder = index + 1;
