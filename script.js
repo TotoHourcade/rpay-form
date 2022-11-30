@@ -1,4 +1,4 @@
-let formData = { typeForm: '', hasShareholder:false, hasErrors: false };
+let formData = { typeForm: '', hasShareholder: false, hasErrors: false };
 
 // Create a new children when a dropdown value has children.
 // Also, delete the last children added if needs
@@ -6,9 +6,9 @@ function selectValueDropdown(event) {
     const valueSelected = event.target.value;
     const idElementSelected = event.target.getAttribute('id');
     let FormItems = []
-    if(!formData.hasShareholder) {
+    if (!formData.hasShareholder) {
         FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
-    }else{
+    } else {
         FormItems = BusinessInformationForm.concat(shareholdersList.flat());
     }
 
@@ -68,7 +68,7 @@ const Button = ({ label, buttonLabel, id, onPress, icon }) => {
     )
 }
 
-const DropDownField = ({ label, id, errorId, options, children = false, titleOfSection, endSection,extraInfo = false}) => {
+const DropDownField = ({ label, id, errorId, options, children = false, titleOfSection, endSection, extraInfo = false }) => {
     return (
         ` ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
         <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}" id="${id}-form">
@@ -88,7 +88,7 @@ const DropDownField = ({ label, id, errorId, options, children = false, titleOfS
     )
 }
 
-const UploadFileField = ({ label, errorId, id, children = false, titleOfSection,extraInfo }) => {
+const UploadFileField = ({ label, errorId, id, children = false, titleOfSection, extraInfo }) => {
     return (`
     ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
 
@@ -285,7 +285,9 @@ const startForm = (typeForm) => {
             <br>
             <a href="https://reserve.org/uslawenforcementrequestpolicy">https://reserve.org/uslawenforcementrequestpolicy</a>
         </p>
-        <p class="mt-4">He leído y aceptado los términos y condiciones (Acuerdo de Usuario, Política de Privacidad y Políticas Legales) para hacer uso de Reserve y sus servicios asociados</p>
+        <p class="mt-4">
+        <input type='checkbox' class="mr-2" id='terms'>
+        He leído y aceptado los términos y condiciones (Acuerdo de Usuario, Política de Privacidad y Políticas Legales) para hacer uso de Reserve y sus servicios asociados</p>
 
             <button  type="submit" onclick="validateForm()"
                     class="mt-4 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -398,6 +400,22 @@ function validateTextField(inputField, elementForm) {
 }
 
 function validateForm() {
+    const checkboxTerms = document.getElementById('terms').checked;
+    if (!checkboxTerms) {
+        Toastify({
+            text: "Acepta los terminos y condiciones para poder enviar el formulario",
+            duration: 3000,
+            close: false,
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "red",
+            },
+            onClick: function () { } // Callback after click
+        }).showToast();
+        return;
+    }
     formData.hasErrors = false;
     let FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
     if (formData.typeForm == 'BusinessForm') {
@@ -423,7 +441,7 @@ function validateForm() {
 
     let dataForm = {};
     FormItems.map(elementForm => {
-        if(elementForm.typeInput === 'Button') return;
+        if (elementForm.typeInput === 'Button') return;
         const inputField = document.getElementById(elementForm.id);
 
         dataForm = { ...dataForm, [elementForm.id]: inputField.value }
@@ -461,14 +479,14 @@ const getShareholdersForm = (shareholder) => {
     let ShareholdersForm = JSON.parse(JSON.stringify(PersonalInformationForm));
 
     PersonalInformationForm.forEach((item, index) => {
-        if(item.validationRegex){
+        if (item.validationRegex) {
             ShareholdersForm[index].validationRegex = item.validationRegex;
         }
 
-        if(item.hasChildren){
+        if (item.hasChildren) {
             item.options.forEach((inputOption, indexInput) => {
-                if(inputOption.hasChildren){
-                    if(Array.isArray(inputOption.hasChildren)){
+                if (inputOption.hasChildren) {
+                    if (Array.isArray(inputOption.hasChildren)) {
                     } else {
                         ShareholdersForm[index].options[indexInput].hasChildren.validationRegex = inputOption.hasChildren.validationRegex;
                     }
@@ -514,7 +532,7 @@ const getShareholdersForm = (shareholder) => {
             }
             return element
         })
-        return newForm
+    return newForm
 }
 
 const addShareholder = () => {
@@ -556,7 +574,7 @@ const removeShareholder = (event) => { // This will need refactoring
         }
     });
     shareholdersList = shareholdersList.filter(e => e)
-    if(shareholdersList.length === 0){
+    if (shareholdersList.length === 0) {
         formData.hasShareholder = false;
     }
     // This loop is for the form container
