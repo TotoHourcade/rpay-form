@@ -70,12 +70,15 @@ const Button = ({ label, buttonLabel, id, onPress, icon }) => {
 
 const DropDownField = ({ label, id, errorId, options, children = false, titleOfSection, endSection, extraInfo = false }) => {
     return (
-        ` ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
+        `
+        ${titleOfSection ? `<div class='col-span-12 mt-5'><h2 class='mt-5'>${titleOfSection}</h2></div>` : ''}
         <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}" id="${id}-form">
         <label for="first-name" class="block text-sm font-medium text-gray-700">${label} 
-        ${!extraInfo ? '' : `<button type="button"  class="btn btn-secondary button-info" data-toggle="tooltip" data-placement="right" title="${extraInfo}">
+        ${!extraInfo ? '' : `<div class="tooltip  button-info">
         i
-        </button>`}
+        <span class="tooltiptext">${extraInfo}</span>
+    </div>`}
+        
         </label>
         <select name="" id="${id}"
         onchange="selectValueDropdown(event)"
@@ -94,9 +97,10 @@ const UploadFileField = ({ label, errorId, id, children = false, titleOfSection,
 
     <div class="col-span-12 sm:col-span-12 ${children ? 'pt-2' : ''}"">
                                 <label class="block text-sm font-medium text-gray-700">${label}
-                                ${!extraInfo ? '' : `<button type="button"  class="btn btn-secondary button-info" data-toggle="tooltip" data-placement="right" title="${extraInfo}">
+                                ${!extraInfo ? '' : `<div class="tooltip  button-info">
                                 i
-                                </button>`}
+                                <span class="tooltiptext">${extraInfo}</span>
+                            </div>`}
                                 </label>
                                 <div class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6"
                                     onclick="openDynamicInputUpload(${id})">
@@ -148,9 +152,10 @@ const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type
         ${titleOfSection ? `<div class='col-span-12 mt-5'><h2>${titleOfSection}</h2></div>` : ''}
         <div class="col-span-12 sm:col-span-${col} ${children ? 'pt-2' : ''}" id="${id}-form">
         <label for="${id}" class="block text-sm font-medium text-gray-700">${label}
-        ${!extraInfo ? '' : `<button type="button"  class="btn btn-secondary button-info" data-toggle="tooltip" data-placement="right" title="${extraInfo}">
+        ${!extraInfo ? '' : `<div class="tooltip  button-info">
         i
-        </button>`}
+        <span class="tooltiptext">${extraInfo}</span>
+    </div>`}
         </label>
         <input type="${type}" name="${id}" id="${id}" 
         placeholder="${placeholder}" autocomplete="given-name"
