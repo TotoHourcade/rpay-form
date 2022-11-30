@@ -143,7 +143,6 @@ const DataPickerField = ({ label, placeholder, errorId, id }) => {
 }
 
 const TextField = ({ id, label, placeholder, errorId, maxLength, minLength, type = "text", isRequired, col = 12, children = false, titleOfSection, endSection, extraInfo }) => {
-    if (children) console.log("childnreeeen")
     return (
         `
         ${titleOfSection ? `<div class='col-span-12 mt-5'><h2>${titleOfSection}</h2></div>` : ''}
@@ -374,7 +373,6 @@ function validateDropdown(inputField, elementForm) {
 }
 
 function validateTextField(inputField, elementForm) {
-    console.log(elementForm, inputField)
 
     if (inputField.value === '' && elementForm.isRequired) {
         if (elementForm.errorMessage) {
@@ -391,7 +389,6 @@ function validateTextField(inputField, elementForm) {
     if (elementForm.validationRegex.length > 0 && inputField.value != '') {
 
         elementForm.validationRegex.forEach((validationElement) => {
-            console.log(validationElement)
             if (!validationElement.validation.test(inputField.value)) {
                 formData.hasErrors = true;
                 document.getElementById(elementForm.errorId).innerText = validationElement.errorText
@@ -403,12 +400,11 @@ function validateTextField(inputField, elementForm) {
 function validateForm() {
     formData.hasErrors = false;
     let FormItems = (formData.typeForm === 'PersonalForm') ? PersonalInformationForm : BusinessInformationForm;
-    console.log(BusinessInformationForm)
     if (formData.typeForm == 'BusinessForm') {
         FormItems = FormItems.concat(shareholdersList.flat());
     }
-    console.log(FormItems)
 
+    console.log(FormItems)
     FormItems.forEach(elementForm => {
         if (elementForm.typeInput != 'Button') {
             const inputField = document.getElementById(elementForm.id);
@@ -427,15 +423,17 @@ function validateForm() {
 
     let dataForm = {};
     FormItems.map(elementForm => {
-        console.log(dataForm)
+        if(elementForm.typeInput === 'Button') return;
         const inputField = document.getElementById(elementForm.id);
 
         dataForm = { ...dataForm, [elementForm.id]: inputField.value }
         if (elementForm.typeInput === 'Dropdown') {
             if (elementForm.options.length > 0) {
                 elementForm.options.forEach((option) => {
+                    // FIXME: inside of this array we should check if the chiild is right
                     if (Array.isArray(option.hasChildren)) {
                         option.hasChildren.forEach((child) => {
+                            console.log(child)
                             const childrenNode = document.getElementById(child.id);
                             dataForm = { ...dataForm, [child.id]: childrenNode.value }
                         })
@@ -468,21 +466,16 @@ const getShareholdersForm = (shareholder) => {
         }
 
         if(item.hasChildren){
-
-            if(Array.isArray(item.hasChildren)){
-                item.hasChildren.forEach((element,indexChild) => {
-                    if(element.hasChildren.validationRegex) {
-                        ShareholdersForm[index].hasChildren[indexChild].validationRegex = element.validationRegex;
+            item.options.forEach((inputOption, indexInput) => {
+                if(inputOption.hasChildren){
+                    if(Array.isArray(inputOption.hasChildren)){
+                    } else {
+                        ShareholdersForm[index].options[indexInput].hasChildren.validationRegex = inputOption.hasChildren.validationRegex;
                     }
-                })
-            }else{
-                if(item.hasChildren.validationRegex) {
-                    ShareholdersForm[index].hasChildren.validationRegex = item.hasChildren.validationRegex;
                 }
-            }
+            })
         }
     })
-    console.log(ShareholdersForm)
 
     const newForm = ShareholdersForm.concat({
         id: 'company_role',
@@ -507,12 +500,12 @@ const getShareholdersForm = (shareholder) => {
             maxLength: 200,
             minLength: 2,
             isRequired: true,
-        }).map((element) => {
+        }).map((element, index) => {
             element.shareholderIndex = shareholder
             element.id = element.id + `_shareholder_${shareholder}`
             element.errorId = element.errorId + `_shareholder_${shareholder}`
             if (element.typeInput === 'Dropdown') {
-                element.options.map((option) => {
+                element.options.map((option, index) => {
                     if (option.hasChildren) {
                         option.hasChildren.id = option.hasChildren.id + `_shareholder_${shareholder}`
                         option.hasChildren.errorId = option.hasChildren.errorId + `_shareholder_${shareholder}`
@@ -521,14 +514,12 @@ const getShareholdersForm = (shareholder) => {
             }
             return element
         })
-        console.log(newForm);
         return newForm
 }
 
 const addShareholder = () => {
     formData.hasShareholder = true;
     if (shareholdersList.length == 4) return
-    console.log(shareholdersList)
     const shareholders = shareholdersList.length + 1;
     const ShareholdersForm = getShareholdersForm(shareholders);
     shareholdersList = shareholdersList.concat([ShareholdersForm])
@@ -576,7 +567,6 @@ const removeShareholder = (event) => { // This will need refactoring
 
         // This loop is for the items inside of the form
         shareholder = shareholder.map((element) => {
-            // console.log(indexShareHolder)
             const newID = element.id.substring(0, element.id.length - 1) + indexShareHolder;
             const newErrorID = element.errorId.substring(0, element.errorId.length - 1) + indexShareHolder;
             //Actualizar cada campo con su id en DOM

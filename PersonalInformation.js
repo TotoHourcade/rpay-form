@@ -169,6 +169,7 @@ const PersonalInformationForm = [
                 value: 'Panama',
             },
         ],
+        hasChildren:'tax_country',
         errorId: 'tax_country_error',
         placeholder: '',
         typeInput: 'Dropdown',
